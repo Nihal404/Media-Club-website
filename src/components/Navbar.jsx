@@ -59,8 +59,14 @@ export default function Navbar({
         {/* Brand Logo — always goes home */}
         <button
           onClick={() => handleNavClick('home')}
-          className="flex items-center gap-3 group focus:outline-none py-1"
+          className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none py-1"
         >
+          <img
+            src="assets/vtu_seal.webp"
+            alt="Visvesvaraya Technological University"
+            className="h-9 sm:h-10 w-auto object-contain rounded-full group-hover:scale-105 transition-all duration-300 drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]"
+          />
+          <span className="h-6 w-px bg-white/20" aria-hidden="true"></span>
           <img
             src="assets/logo.png"
             alt="VTU Media Club"

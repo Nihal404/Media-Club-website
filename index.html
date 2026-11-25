@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="dark scroll-smooth">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,7 +10,9 @@
   <!-- Google Fonts: Plus Jakarta Sans & Instrument Serif -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -145,9 +148,9 @@
           video.currentTime = 0;
           var p = video.play();
           if (p && typeof p.catch === 'function') {
-            p.catch(function () {});
+            p.catch(function () { });
           }
-        } catch (e) {}
+        } catch (e) { }
       }
 
       var dur = typeof duration === 'number' ? duration : 2800;
@@ -174,7 +177,7 @@
       window.addEventListener('DOMContentLoaded', function () {
         var video = document.getElementById('preloaderVideo');
         if (video) {
-          video.play().catch(function () {});
+          video.play().catch(function () { });
         }
       });
     })();
@@ -189,44 +192,52 @@
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
 </head>
-<body class="bg-gradient-to-br from-[#58080f] via-[#2c0407] to-[#0d0102] bg-fixed text-zinc-100 font-sans antialiased overflow-x-hidden selection:bg-[#930510]/40 selection:text-white min-h-screen relative">
+
+<body
+  class="bg-gradient-to-br from-[#58080f] via-[#2c0407] to-[#0d0102] bg-fixed text-zinc-100 font-sans antialiased overflow-x-hidden selection:bg-[#930510]/40 selection:text-white min-h-screen relative">
 
   <!-- Interactive Scroll Progress HUD Bar -->
-  <div id="scrollProgress" class="fixed top-0 left-0 h-[2.5px] bg-gradient-to-r from-[#53080E] via-[#930510] to-[#B21F29] z-50 w-0 transition-all duration-75" aria-hidden="true"></div>
+  <div id="scrollProgress"
+    class="fixed top-0 left-0 h-[2.5px] bg-gradient-to-r from-[#53080E] via-[#930510] to-[#B21F29] z-50 w-0 transition-all duration-75"
+    aria-hidden="true"></div>
 
   <!-- Interactive Background Canvas: Dust Particles & Camera Bokeh Simulator -->
   <canvas id="cinemaFxCanvas" class="fixed inset-0 pointer-events-none z-10 opacity-70" aria-hidden="true"></canvas>
 
   <!-- Cinema 4-Second Studio Intro Video (Pure Seamless Unboxed Experience) -->
-  <div id="cinemaPreloader" class="fixed inset-0 z-[100] flex items-center justify-center bg-black overflow-hidden select-none transition-opacity duration-1000 ease-out" style="background-color: #000000 !important; background: #000000 !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important;">
+  <div id="cinemaPreloader"
+    class="fixed inset-0 z-[100] flex items-center justify-center bg-black overflow-hidden select-none transition-opacity duration-1000 ease-out"
+    style="background-color: #000000 !important; background: #000000 !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important;">
     <!-- Centered Studio Video: Seamless, unboxed, authentic cinema studio intro -->
     <div class="relative w-full max-w-3xl sm:max-w-4xl max-h-[85vh] flex items-center justify-center p-4">
-      <video
-        id="preloaderVideo"
-        src="assets/loader.mp4"
-        autoplay
-        muted
-        playsinline
-        preload="auto"
-        class="w-full h-auto max-h-[80vh] object-contain drop-shadow-[0_0_60px_rgba(178,31,41,0.35)]"
-      ></video>
+      <video id="preloaderVideo" src="assets/loader.mp4" autoplay muted playsinline preload="auto"
+        class="w-full h-auto max-h-[80vh] object-contain drop-shadow-[0_0_60px_rgba(178,31,41,0.35)]"></video>
     </div>
 
     <!-- Discrete Minimalist Skip in Bottom Right -->
-    <div class="absolute bottom-6 right-8 z-10">
-      <button onclick="window.dismissPreloader();" class="text-[11px] font-mono text-zinc-500 hover:text-white transition-colors cursor-pointer tracking-widest uppercase flex items-center gap-1.5 opacity-60 hover:opacity-100">
-        <span>Skip</span>
-        <span class="text-[#B21F29]">&rarr;</span>
+    <div class="absolute bottom-6 right-8 z-10">utton onclick="window.dismissPreloader();" class="text-[11px] font-mono
+      text-zinc-500 hover:text-white transition-colors cursor-pointer tracking-widest uppercase flex items-center
+      gap-1.5 opacity-60 hover:opacity-100">
+      <span>Skip</span>
+      <span class="text-[#B21F29]">&rarr;</span>
       </button>
     </div>
   </div>
 
   <!-- Ambient Cinematic Maroon Aurora Orbs -->
   <div class="pointer-events-none fixed inset-0 overflow-hidden z-0" aria-hidden="true">
-    <div class="orb-float absolute -top-40 left-1/4 w-[46rem] h-[46rem] rounded-full bg-gradient-to-br from-[#B21F29]/35 via-[#930510]/28 to-transparent blur-[140px]"></div>
-    <div class="orb-float-delayed absolute top-1/3 -right-36 w-[42rem] h-[42rem] rounded-full bg-gradient-to-bl from-[#930510]/30 via-[#72090F]/24 to-transparent blur-[140px]"></div>
-    <div class="orb-float absolute top-2/3 -left-36 w-[40rem] h-[40rem] rounded-full bg-gradient-to-tr from-[#B21F29]/28 via-[#72090F]/22 to-transparent blur-[130px]"></div>
-    <div class="orb-float-delayed absolute -bottom-36 right-1/4 w-[48rem] h-[48rem] rounded-full bg-gradient-to-tl from-[#930510]/32 via-[#53080E]/26 to-transparent blur-[150px]"></div>
+    <div
+      class="orb-float absolute -top-40 left-1/4 w-[46rem] h-[46rem] rounded-full bg-gradient-to-br from-[#B21F29]/35 via-[#930510]/28 to-transparent blur-[140px]">
+    </div>
+    <div
+      class="orb-float-delayed absolute top-1/3 -right-36 w-[42rem] h-[42rem] rounded-full bg-gradient-to-bl from-[#930510]/30 via-[#72090F]/24 to-transparent blur-[140px]">
+    </div>
+    <div
+      class="orb-float absolute top-2/3 -left-36 w-[40rem] h-[40rem] rounded-full bg-gradient-to-tr from-[#B21F29]/28 via-[#72090F]/22 to-transparent blur-[130px]">
+    </div>
+    <div
+      class="orb-float-delayed absolute -bottom-36 right-1/4 w-[48rem] h-[48rem] rounded-full bg-gradient-to-tl from-[#930510]/32 via-[#53080E]/26 to-transparent blur-[150px]">
+    </div>
   </div>
 
   <!-- Main React JS Mount Point -->
@@ -242,4 +253,5 @@
     </div>
   </noscript>
 </body>
+
 </html>
