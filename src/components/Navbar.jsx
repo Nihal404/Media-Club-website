@@ -113,27 +113,6 @@ export default function Navbar({
             <span>HUD Mode</span>
           </button>
 
-          {/* Sound Synthesizer Toggle */}
-          <button
-            onClick={onToggleSound}
-            aria-label="Toggle Sound Effects"
-            className={`p-2 rounded-full border transition-all flex items-center justify-center ${
-              soundActive
-                ? 'border-[#B21F29] text-[#B21F29] bg-[#72090F]/20'
-                : 'border-white/[0.12] bg-white/[0.03] text-zinc-300 hover:bg-white/[0.08] hover:text-white'
-            }`}
-          >
-            {soundActive ? (
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M11 5L6 9H2v6h4l5 4V5z"/>
-              </svg>
-            ) : (
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5.586 15H2v-6h3.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z M17 14l5-5m0 5l-5-5"/>
-              </svg>
-            )}
-          </button>
-
           <button
             onClick={onOpenBooking}
             className="px-3.5 py-1.5 rounded-full text-xs font-medium text-zinc-200 border border-white/[0.12] bg-white/[0.02] hover:bg-white/[0.08] hover:border-white/25 transition-all"
