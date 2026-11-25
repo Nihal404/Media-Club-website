@@ -2,11 +2,18 @@ import React, { useState, useRef } from 'react';
 import { featuredCreators, allMembers } from '../data/members';
 import { playWhooshSound, playShutterSound } from '../utils/audio';
 
+const CORE_NAMES = ['Vikram', 'Harshada', 'Nihal', 'Adarsh', 'Prajwal V Gowda', 'Agam', 'Araman'];
+function getMemberCategory(m) {
+  if (m && (m.category === 'Core Team' || m.category === 'Members')) return m.category;
+  return (m && CORE_NAMES.includes(m.name)) ? 'Core Team' : 'Members';
+}
+
 export default function MembersWall({ onOpenMemberModal }) {
-  const [activeDept, setActiveDept] = useState('All');
-  const [searchQuery, setSearchQuery] = useState('');
-  const carouselRef = useRef(null);
-  const depts = ['All', 'Cinematography', 'Photography', 'Editing & Color', 'Graphic Design', 'Motion & VFX', 'Live & Audio', 'Social Media'];
+  const [activeCategory, setActiveCategory] = useState('Core Team');
+  const categories = [
+    { id: 'Core Team', label: '⭐ Core Team' },
+    { id: 'Members', label: '👥 Members' }
+  ];
 
   const scrollCreators = (delta) => {
     if (!carouselRef.current) return;
@@ -14,9 +21,7 @@ export default function MembersWall({ onOpenMemberModal }) {
     playWhooshSound();
   };
 
-  let filteredMembers = activeDept === 'All'
-    ? allMembers
-    : allMembers.filter((m) => m.dept === activeDept);
+  let filteredMembers = allMembers.filter((m) => getMemberCategory(m) === activeCategory);
 
   if (searchQuery.trim()) {
     const q = searchQuery.toLowerCase();
@@ -140,21 +145,26 @@ export default function MembersWall({ onOpenMemberModal }) {
             </div>
           </div>
 
-          {/* Department Filter Pills */}
-          <div className="flex flex-wrap gap-2">
-            {depts.map((d) => (
-              <button
-                key={d}
-                onClick={() => { setActiveDept(d); playWhooshSound(); }}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
-                  activeDept === d
-                    ? 'bg-[#72090F]/30 text-white border border-[#B21F29]/60 shadow-glow-terracotta'
-                    : 'bg-white/[0.03] text-zinc-400 border border-white/[0.08] hover:text-white hover:bg-white/[0.08]'
-                }`}
-              >
-                {d}
-              </button>
-            ))}
+          {/* Two Segregations: Core Team & Members */}
+          <div className="flex flex-wrap gap-3">
+            {categories.map((c) => {
+              const count = allMembers.filter(m => getMemberCategory(m) === c.id).length;
+              const isActive = activeCategory === c.id;
+              return (
+                <button
+                  key={c.id}
+                  onClick={() => { setActiveCategory(c.id); playWhooshSound(); }}
+                  className={`px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-300 flex items-center gap-2 ${
+                    isActive
+                      ? 'bg-[#B21F29] text-white border border-[#B21F29] shadow-lg shadow-[#B21F29]/40 scale-105'
+                      : 'bg-white/[0.04] text-zinc-400 border border-white/[0.08] hover:text-white hover:bg-white/[0.08]'
+                  }`}
+                >
+                  <span>{c.label}</span>
+                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono ${isActive ? 'bg-black/35 text-white' : 'bg-white/10 text-zinc-300'}`}>{count}</span>
+                </button>
+              );
+            })}
           </div>
 
           {/* Interactive Member Portrait Cards Grid */}

@@ -582,6 +582,14 @@
               <option value="Social Media">Social Media</option>
             </select>
           </div>
+          <div>
+            <label class="block text-xs font-mono text-zinc-300 mb-1">TEAM SEGREGATION / TIER *</label>
+            <select id="memberCategory" class="w-full px-3.5 py-2 rounded-xl glass-input text-xs text-white focus:outline-none bg-[#120406]">
+              <option value="Members">👥 Members (General Crew)</option>
+              <option value="Core Team">⭐ Core Team (Leadership & Heads)</option>
+            </select>
+          </div>
+
 
           <div>
             <label class="block text-xs font-mono text-zinc-300 mb-1">HANDLE / USERNAME</label>
@@ -896,6 +904,7 @@
     const DEFAULT_MEMBERS = [
   {
     name: "Vikram",
+    category: "Core Team",
     role: "Club President & Lead Editor",
     dept: "Cinematography",
     handle: "@vikram.vtu",
@@ -907,6 +916,7 @@
   },
   {
     name: "Harshada",
+    category: "Core Team",
     role: "Club Vice President",
     dept: "Cinematography",
     handle: "@harshada.vtu",
@@ -918,6 +928,7 @@
   },
   {
     name: "Nihal",
+    category: "Core Team",
     role: "Lead Videographer & Senior Editor",
     dept: "Cinematography",
     handle: "@nihal.cine",
@@ -929,6 +940,7 @@
   },
   {
     name: "Adarsh",
+    category: "Core Team",
     role: "Head of PR & Graphic Design",
     dept: "Motion & VFX",
     handle: "@adarsh.creative",
@@ -940,6 +952,7 @@
   },
   {
     name: "Prajwal V Gowda",
+    category: "Core Team",
     role: "Web UI/UX Lead & Data Systems",
     dept: "Motion & VFX",
     handle: "@prajwal.dev",
@@ -951,6 +964,7 @@
   },
   {
     name: "Arun",
+    category: "Members",
     role: "Cinematographer & Data Systems",
     dept: "Cinematography",
     handle: "@arun.visuals",
@@ -962,6 +976,7 @@
   },
   {
     name: "Krutika",
+    category: "Members",
     role: "Cinematographer & Camera Operator",
     dept: "Cinematography",
     handle: "@krutika.frames",
@@ -973,6 +988,7 @@
   },
   {
     name: "Krupal",
+    category: "Members",
     role: "Senior Video Editor",
     dept: "Editing & Color",
     handle: "@krupal.edits",
@@ -984,6 +1000,7 @@
   },
   {
     name: "Om",
+    category: "Members",
     role: "Film Editor & Colorist",
     dept: "Editing & Color",
     handle: "@om.cuts",
@@ -995,6 +1012,7 @@
   },
   {
     name: "Araman",
+    category: "Core Team",
     role: "Social Media Lead",
     dept: "Editing & Color",
     handle: "@araman.social",
@@ -1006,6 +1024,7 @@
   },
   {
     name: "Srushti",
+    category: "Members",
     role: "Social Media Strategist",
     dept: "Editing & Color",
     handle: "@srushti.creates",
@@ -1017,6 +1036,7 @@
   },
   {
     name: "Keerti",
+    category: "Members",
     role: "Digital Outreach Specialist",
     dept: "Editing & Color",
     handle: "@keerti.media",
@@ -1028,6 +1048,7 @@
   },
   {
     name: "Apoorva",
+    category: "Members",
     role: "Social Media Content Specialist",
     dept: "Editing & Color",
     handle: "@apoorva.digital",
@@ -1039,6 +1060,7 @@
   },
   {
     name: "Nagaraj",
+    category: "Members",
     role: "Graphic Designer",
     dept: "Graphic Design",
     handle: "@nagaraj.design",
@@ -1050,6 +1072,7 @@
   },
   {
     name: "Agam",
+    category: "Core Team",
     role: "Treasurer & Production Logistics",
     dept: "Live & Audio",
     handle: "@agam.production",
@@ -1208,6 +1231,13 @@
     let heroVideoData = {};
 
     let currentTab = 'team';
+    function getMemberCategory(m) {
+      if (m && (m.category === 'Core Team' || m.category === 'Members')) return m.category;
+      const coreNames = ['Vikram', 'Harshada', 'Nihal', 'Adarsh', 'Prajwal V Gowda', 'Agam', 'Araman'];
+      return (m && coreNames.includes(m.name)) ? 'Core Team' : 'Members';
+    }
+    window.getMemberCategory = getMemberCategory;
+    let currentCategoryFilter = 'All';
     let currentDeptFilter = 'All';
     let currentGalleryCategory = 'All';
 
@@ -1324,10 +1354,16 @@
       const act = document.getElementById('tabActionContainer');
       if (tab === 'team') {
         act.innerHTML = `
-          <button onclick="openMemberModal(null)" class="px-4 py-2.5 rounded-xl bg-[#B21F29] hover:bg-[#930510] text-white text-xs font-semibold transition-all flex items-center gap-1.5 shadow-lg shadow-[#B21F29]/30 cursor-pointer">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
-            <span>Add Team Member</span>
-          </button>
+          <div class="flex items-center gap-2">
+            <button onclick="openMemberModal(null, 'Members')" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-all flex items-center gap-1.5 shadow-md cursor-pointer">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+              <span>+ Add Member</span>
+            </button>
+            <button onclick="openMemberModal(null, 'Core Team')" class="px-3.5 py-2 rounded-xl bg-[#B21F29] hover:bg-[#930510] text-white text-xs font-semibold transition-all flex items-center gap-1.5 shadow-lg shadow-[#B21F29]/30 cursor-pointer">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+              <span>+ Add Core Team</span>
+            </button>
+          </div>
         `;
       } else if (tab === 'gallery') {
         act.innerHTML = `
@@ -1345,22 +1381,36 @@
     // TAB 1: TEAM & STORYTELLERS
     // =======================================================================
     function renderDeptFilterButtons() {
-      const depts = ['All', 'Cinematography', 'Photography', 'Editing & Color', 'Graphic Design', 'Motion & VFX', 'Live & Audio', 'Social Media'];
       const c = document.getElementById('deptFilterButtons');
-      c.innerHTML = depts.map(d => `
-        <button onclick="setDeptFilter('${d}')" class="px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
-          currentDeptFilter === d
-            ? 'bg-[#B21F29] text-white shadow-lg shadow-[#B21F29]/30'
-            : 'bg-white/[0.04] text-zinc-400 hover:text-white border border-white/10'
-        }">${d}</button>
+      if (!c) return;
+      const coreCount = membersData.filter(m => getMemberCategory(m) === 'Core Team').length;
+      const membersCount = membersData.filter(m => getMemberCategory(m) === 'Members').length;
+      const totalCount = membersData.length;
+
+      const filters = [
+        { id: 'All', label: 'All Creators', count: totalCount },
+        { id: 'Core Team', label: '⭐ Core Team', count: coreCount },
+        { id: 'Members', label: '👥 Members', count: membersCount }
+      ];
+
+      c.innerHTML = filters.map(f => `
+        <button onclick="setCategoryFilter('${f.id}')" class="px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all ${
+          currentCategoryFilter === f.id
+            ? 'bg-[#B21F29] text-white shadow-lg shadow-[#B21F29]/40 border border-[#B21F29]'
+            : 'bg-white/[0.04] text-zinc-400 hover:text-white border border-white/10 hover:bg-white/[0.08]'
+        }">
+          <span>${f.label}</span>
+          <span class="ml-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono ${currentCategoryFilter === f.id ? 'bg-black/35 text-white' : 'bg-white/10 text-zinc-300'}">${f.count}</span>
+        </button>
       `).join('');
     }
 
-    function setDeptFilter(dept) {
-      currentDeptFilter = dept;
+    function setCategoryFilter(cat) {
+      currentCategoryFilter = cat;
       renderDeptFilterButtons();
       renderTeamCards();
     }
+    window.setCategoryFilter = setCategoryFilter;
 
     let memberQuery = '';
     function handleMemberSearch(q) {
@@ -1551,11 +1601,25 @@
       }
     }
 
+        function toggleMemberTier(idx) {
+      const m = membersData[idx];
+      if (!m) return;
+      const current = getMemberCategory(m);
+      const newCat = current === 'Core Team' ? 'Members' : 'Core Team';
+      m.category = newCat;
+      safeSetItem('vtu_media_members', membersData);
+      showToast(`Moved "${m.name}" to ${newCat}!`);
+      updateCounts();
+      renderDeptFilterButtons();
+      renderTeamCards();
+    }
+    window.toggleMemberTier = toggleMemberTier;
+
     function renderTeamCards() {
       const grid = document.getElementById('teamCardsGrid');
       let filtered = membersData;
-      if (currentDeptFilter !== 'All') {
-        filtered = filtered.filter(m => m.dept === currentDeptFilter);
+      if (currentCategoryFilter !== 'All') {
+        filtered = filtered.filter(m => getMemberCategory(m) === currentCategoryFilter);
       }
       if (memberQuery) {
         filtered = filtered.filter(m =>
@@ -1587,7 +1651,7 @@
                     ${inCarousel ? '<span class="text-[10px] font-mono text-amber-300 bg-amber-500/20 px-1.5 py-0.5 rounded shrink-0">⭐ Featured</span>' : ''}
                   </div>
                   <p class="text-xs text-[#fda4af] font-mono truncate mt-0.5">${m.role}</p>
-                  <span class="inline-block px-2 py-0.5 rounded-md bg-white/[0.06] text-[10px] font-mono text-zinc-400 mt-1">${m.dept}</span>
+                  <span class="inline-block px-2 py-0.5 rounded-md ${getMemberCategory(m) === 'Core Team' ? 'bg-[#B21F29]/30 text-[#fda4af] border border-[#B21F29]/50' : 'bg-blue-500/20 text-blue-300 border border-blue-500/40'} text-[10px] font-mono mt-1 font-semibold">${getMemberCategory(m) === 'Core Team' ? '⭐ Core Team' : '👥 Member'}</span>
                 </div>
               </div>
 
@@ -1600,6 +1664,15 @@
 
             <!-- Action Buttons -->
             <div class="space-y-2 pt-4 mt-4 border-t border-white/[0.08]">
+              <!-- 1-Click Tier Switcher -->
+              <button
+                type="button"
+                onclick="toggleMemberTier(${originalIndex})"
+                class="w-full py-1 px-2.5 rounded-lg bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 text-zinc-300 hover:text-white text-[11px] font-medium transition-all flex items-center justify-center gap-1.5"
+              >
+                <span>${getMemberCategory(m) === 'Core Team' ? '🔄 Switch to Members' : '⭐ Promote to Core Team'}</span>
+              </button>
+
               <!-- Carousel Toggle Button -->
               ${inCarousel ? `
                 <button
@@ -1641,7 +1714,7 @@
       }).join('');
     }
 
-    function openMemberModal(index) {
+    function openMemberModal(index, defaultCategory) {
       const modal = document.getElementById('memberEditModal');
       const title = document.getElementById('memberModalTitle');
       const idxInput = document.getElementById('memberEditIndex');
@@ -1653,6 +1726,7 @@
         document.getElementById('memberName').value = m.name || '';
         document.getElementById('memberRole').value = m.role || '';
         document.getElementById('memberDept').value = m.dept || 'Cinematography';
+        document.getElementById('memberCategory').value = getMemberCategory(m);
         document.getElementById('memberHandle').value = m.handle || '';
         document.getElementById('memberGear').value = m.gear || '';
         document.getElementById('memberCredits').value = m.credits || '';
@@ -1660,11 +1734,13 @@
         document.getElementById('memberPhotoUrl').value = m.img || '';
         document.getElementById('memberPhotoPreview').src = m.img || '';
       } else {
-        title.textContent = "Add New Team Member";
+        const cat = defaultCategory || 'Members';
+        title.textContent = cat === 'Core Team' ? "Add New Core Team Member" : "Add New Crew Member";
         idxInput.value = "-1";
         document.getElementById('memberName').value = '';
         document.getElementById('memberRole').value = '';
         document.getElementById('memberDept').value = 'Cinematography';
+        document.getElementById('memberCategory').value = cat;
         document.getElementById('memberHandle').value = '';
         document.getElementById('memberGear').value = '';
         document.getElementById('memberCredits').value = '';
@@ -1728,7 +1804,8 @@
         return;
       }
 
-      const newMember = { name, role, dept, handle, gear, credits, bio, img, exif };
+      const category = document.getElementById('memberCategory') ? document.getElementById('memberCategory').value : 'Members';
+      const newMember = { name, role, dept, category, handle, gear, credits, bio, img, exif };
 
       if (idx >= 0 && idx < membersData.length) {
         membersData[idx] = newMember;
