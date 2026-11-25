@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VTU Media Club — Cinema, Editorial & Production Collective</title>
+
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <!-- Google Fonts: Plus Jakarta Sans & Instrument Serif -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+          },
+          colors: {
+            // Brand New Cinema Editorial Palette (Exact User Swatches)
+            nightRider: '#020101',
+            aubergine: '#3D0B0D',
+            mahogany: '#53080E',
+            darkBurgundy: '#72090F',
+            pohutukawa: '#930510',
+            roofTerracotta: '#B21F29',
+
+            // Base Surfaces (Grounded in Night Rider & Deep Aubergine)
+            obsidian: '#020101',      // Night Rider
+            surface: '#120406',       // Deep Aubergine Surface
+            surfaceLight: '#24070a',  // Elevated Mahogany Tinted Surface
+
+            // Primary & Secondary Brand Scales
+            indigo: {
+              50: '#fff1f2',
+              100: '#ffe4e6',
+              200: '#fecdd3',
+              300: '#fda4af',
+              400: '#e14457',
+              500: '#B21F29', // Roof Terracotta
+              600: '#930510', // Pohutukawa
+              700: '#72090F', // Dark Burgundy
+              800: '#53080E', // Mahogany
+              900: '#3D0B0D', // Aubergine
+              950: '#020101', // Night Rider
+            },
+            violet: {
+              400: '#d1384e',
+              500: '#930510', // Pohutukawa
+              600: '#72090F', // Dark Burgundy
+              700: '#53080E', // Mahogany
+              800: '#3D0B0D', // Aubergine
+              900: '#220609',
+              950: '#020101',
+            },
+            emerald: {
+              400: '#B21F29',
+              500: '#930510',
+              600: '#72090F',
+            },
+            accentIndigo: '#B21F29',
+            accentViolet: '#930510',
+            accentEmerald: '#B21F29',
+          },
+          boxShadow: {
+            'glow-indigo': '0 0 50px -6px rgba(178, 31, 41, 0.65)',
+            'glow-violet': '0 0 65px -10px rgba(147, 5, 16, 0.6)',
+            'glow-terracotta': '0 0 55px -6px rgba(178, 31, 41, 0.75)',
+            'glow-burgundy': '0 0 45px -8px rgba(114, 9, 15, 0.7)',
+            'glow-emerald': '0 0 45px -8px rgba(178, 31, 41, 0.55)',
+            'glow-cyan': '0 0 45px -8px rgba(147, 5, 16, 0.6)',
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Early Head Helper Functions -->
+  <script>
+    window.imgFallback = function (img) {
+      if (!img) return;
+      img.onerror = null;
+      var label = encodeURIComponent(img.alt || 'VTU Media');
+      img.src = 'https://placehold.co/800x600/0f1220/a5b4fc?text=' + label;
+    };
+
+    window.dismissPreloader = function () {
+      var preloader = document.getElementById('cinemaPreloader');
+      if (!preloader || preloader.dataset.dismissed === 'true') return;
+      preloader.dataset.dismissed = 'true';
+
+      preloader.style.opacity = '0';
+      preloader.style.pointerEvents = 'none';
+
+      setTimeout(function () {
+        if (preloader && preloader.parentNode) {
+          preloader.style.display = 'none';
+        }
+      }, 900);
+    };
+
+    // 4-Second Seamless Cinema Intro Video Timer
+    (function () {
+      var totalDuration = 4000; // Exact 4 Seconds
+      var startTime = Date.now();
+
+      var interval = setInterval(function () {
+        var elapsed = Date.now() - startTime;
+        if (elapsed >= totalDuration) {
+          clearInterval(interval);
+          if (typeof window.dismissPreloader === 'function') {
+            window.dismissPreloader();
+          }
+        }
+      }, 50);
+
+      window.addEventListener('DOMContentLoaded', function () {
+        var video = document.getElementById('preloaderVideo');
+        if (video) {
+          video.play().catch(function () {});
+        }
+      });
+    })();
+  </script>
+
+  <!-- Separated Modular CSS: Core Design System, Animations & Cinema Effects -->
+  <link rel="stylesheet" href="src/styles/main.css?v=20261125_pure_black_intro" />
+  <link rel="stylesheet" href="src/styles/animations.css?v=20261125_pure_black_intro" />
+  <link rel="stylesheet" href="src/styles/effects.css?v=20261125_pure_black_intro" />
+
+  <!-- React 18 & ReactDOM 18 Engine -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+</head>
+<body class="bg-gradient-to-br from-[#58080f] via-[#2c0407] to-[#0d0102] bg-fixed text-zinc-100 font-sans antialiased overflow-x-hidden selection:bg-[#930510]/40 selection:text-white min-h-screen relative">
+
+  <!-- Interactive Scroll Progress HUD Bar -->
+  <div id="scrollProgress" class="fixed top-0 left-0 h-[2.5px] bg-gradient-to-r from-[#53080E] via-[#930510] to-[#B21F29] z-50 w-0 transition-all duration-75" aria-hidden="true"></div>
+
+  <!-- Interactive Background Canvas: Dust Particles & Camera Bokeh Simulator -->
+  <canvas id="cinemaFxCanvas" class="fixed inset-0 pointer-events-none z-10 opacity-70" aria-hidden="true"></canvas>
+
+  <!-- Cinema 4-Second Studio Intro Video (Pure Seamless Unboxed Experience) -->
+  <div id="cinemaPreloader" class="fixed inset-0 z-[100] flex items-center justify-center bg-black overflow-hidden select-none transition-opacity duration-1000 ease-out" style="background-color: #000000 !important; background: #000000 !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important;">
+    <!-- Centered Studio Video: Seamless, unboxed, authentic cinema studio intro -->
+    <div class="relative w-full max-w-3xl sm:max-w-4xl max-h-[85vh] flex items-center justify-center p-4">
+      <video
+        id="preloaderVideo"
+        src="assets/loader.mp4"
+        autoplay
+        muted
+        playsinline
+        preload="auto"
+        class="w-full h-auto max-h-[80vh] object-contain drop-shadow-[0_0_60px_rgba(178,31,41,0.35)]"
+      ></video>
+    </div>
+
+    <!-- Discrete Minimalist Skip in Bottom Right -->
+    <div class="absolute bottom-6 right-8 z-10">
+      <button onclick="window.dismissPreloader();" class="text-[11px] font-mono text-zinc-500 hover:text-white transition-colors cursor-pointer tracking-widest uppercase flex items-center gap-1.5 opacity-60 hover:opacity-100">
+        <span>Skip</span>
+        <span class="text-[#B21F29]">&rarr;</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Ambient Cinematic Maroon Aurora Orbs -->
+  <div class="pointer-events-none fixed inset-0 overflow-hidden z-0" aria-hidden="true">
+    <div class="orb-float absolute -top-40 left-1/4 w-[46rem] h-[46rem] rounded-full bg-gradient-to-br from-[#B21F29]/35 via-[#930510]/28 to-transparent blur-[140px]"></div>
+    <div class="orb-float-delayed absolute top-1/3 -right-36 w-[42rem] h-[42rem] rounded-full bg-gradient-to-bl from-[#930510]/30 via-[#72090F]/24 to-transparent blur-[140px]"></div>
+    <div class="orb-float absolute top-2/3 -left-36 w-[40rem] h-[40rem] rounded-full bg-gradient-to-tr from-[#B21F29]/28 via-[#72090F]/22 to-transparent blur-[130px]"></div>
+    <div class="orb-float-delayed absolute -bottom-36 right-1/4 w-[48rem] h-[48rem] rounded-full bg-gradient-to-tl from-[#930510]/32 via-[#53080E]/26 to-transparent blur-[150px]"></div>
+  </div>
+
+  <!-- Main React JS Mount Point -->
+  <div id="root"></div>
+
+  <!-- React JS Application Bundle with Cache-Buster -->
+  <script src="src/bundle.js?v=20261125_editable_hero_card"></script>
+
+  <!-- Noscript Fallback -->
+  <noscript>
+    <div class="p-8 text-center text-zinc-300">
+      Please enable JavaScript to view the VTU Media Club cinema editorial experience.
+    </div>
+  </noscript>
+</body>
+</html>

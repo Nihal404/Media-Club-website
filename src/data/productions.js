@@ -1,0 +1,107 @@
+// Work showcase & film productions
+export const productions = [
+  {
+    title: "VTU Fest '26 Official Aftermovie",
+    category: "Aftermovies",
+    director: "Aarav Deshpande",
+    duration: "03:42",
+    tag: "4K DCI RAW",
+    views: "48.2K",
+    summary: "Three electric days of mainstage concerts, cultural parades, and crowd euphoria cut to an original cinematic score.",
+    image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=900&q=85",
+    camera: "Sony FX3 • 35mm GM",
+    lut: "Kodak 2383 Film Print",
+    accent: "from-[#B21F29]/35 to-[#53080E]/40"
+  },
+  {
+    title: "Midnight CodeSprint 48H",
+    category: "Aftermovies",
+    director: "Diya Patil",
+    duration: "02:18",
+    tag: "DOCUSERIES",
+    views: "18.9K",
+    summary: "Fast-paced docu-reel tracking 60 student engineering teams building AI and robotics prototypes overnight.",
+    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=900&q=85",
+    camera: "Sony A7SIII • 24-70mm",
+    lut: "Technicolor Cyan Core",
+    accent: "from-[#930510]/35 to-[#3D0B0D]/40"
+  },
+  {
+    title: "Echoes of Belagavi",
+    category: "Short Films",
+    director: "Kabir Deshmukh",
+    duration: "06:15",
+    tag: "SHORT FILM",
+    views: "31.4K",
+    summary: "Award-winning student short exploring monsoon dusk, heritage architecture, and collegiate friendships across Jnana Sangama.",
+    image: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=900&q=85",
+    camera: "ARRI Alexa Mini LF",
+    lut: "Vintage 35mm Tungsten",
+    accent: "from-[#72090F]/35 to-[#B21F29]/30"
+  },
+  {
+    title: "25th Convocation Live Multi-Cam",
+    category: "Live Broadcast",
+    director: "Ishita Rao",
+    duration: "04:05",
+    tag: "MULTI-CAM 4K",
+    views: "62.1K",
+    summary: "5-camera ATEM switched broadcast with real-time lower-thirds, satellite uplink, and global alumni stream.",
+    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=900&q=85",
+    camera: "Sony FX6 & ATEM ISO",
+    lut: "Broadcast Rec.709 Clean",
+    accent: "from-[#53080E]/40 to-[#930510]/35"
+  },
+  {
+    title: "Neon Stage: Battle of Bands",
+    category: "Motion & VFX",
+    director: "Elian Shetty",
+    duration: "02:54",
+    tag: "VFX REEL",
+    views: "27.7K",
+    summary: "Audio-reactive LED backdrop visuals paired with gimbal tracking shots, laser sync, and kinetic 3D typography.",
+    image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=900&q=85",
+    camera: "Sony FX3 • DJI RS4",
+    lut: "Neon Cyberpunk Grade",
+    accent: "from-[#B21F29]/35 to-[#72090F]/30"
+  },
+  {
+    title: "Jnana Sangama Campus Aerial FPV",
+    category: "Drone Cinema",
+    director: "Rohan Kamath",
+    duration: "02:40",
+    tag: "60FPS FPV",
+    views: "35.8K",
+    summary: "High-velocity acrobatic drone sweep over VTU headquarters, senate hall, lush botanical gardens, and tech parks.",
+    image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=900&q=85",
+    camera: "Custom 6S FPV • GoPro 12",
+    lut: "Golden Dusk Vivid",
+    accent: "from-[#930510]/35 to-[#53080E]/35"
+  },
+  {
+    title: "Formula Student Track Trials",
+    category: "Aftermovies",
+    director: "Varun Gowda",
+    duration: "01:55",
+    tag: "120FPS SLOW-MO",
+    views: "23.4K",
+    summary: "Adrenaline-fueled mechanical engineering documentary capturing the VTU racing car accelerating at dawn.",
+    image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=900&q=85",
+    camera: "Sony A7IV • 70-200mm",
+    lut: "Monza High Contrast",
+    accent: "from-[#B21F29]/35 to-[#3D0B0D]/40"
+  },
+  {
+    title: "Kinetic Campus Brand Pack",
+    category: "Motion & VFX",
+    director: "Tanvi Naik",
+    duration: "01:36",
+    tag: "3D MOTION",
+    views: "19.5K",
+    summary: "Modular broadcast intro package and 3D stingers built for 12 VTU student clubs and university summits.",
+    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=900&q=85",
+    camera: "Blender 4.0 & After Effects",
+    lut: "ACEScg Linear to Rec.709",
+    accent: "from-purple-500/35 to-indigo-600/30"
+  }
+];
