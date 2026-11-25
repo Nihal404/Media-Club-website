@@ -1,0 +1,480 @@
+{
+  "vtu_media_productions": [
+    {
+      "title": "VTU Fest '26 Official Aftermovie",
+      "category": "Aftermovies",
+      "director": "Aarav Deshpande",
+      "duration": "03:42",
+      "tag": "4K DCI RAW",
+      "views": "48.2K",
+      "summary": "Three electric days of mainstage concerts, cultural parades, and crowd euphoria cut to an original cinematic score.",
+      "image": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=900&q=85",
+      "camera": "Sony FX3 • 35mm GM",
+      "lut": "Kodak 2383 Film Print",
+      "accent": "from-indigo-500/35 to-violet-600/35"
+    },
+    {
+      "title": "Midnight CodeSprint 48H",
+      "category": "Aftermovies",
+      "director": "Diya Patil",
+      "duration": "02:18",
+      "tag": "DOCUSERIES",
+      "views": "18.9K",
+      "summary": "Fast-paced docu-reel tracking 60 student engineering teams building AI and robotics prototypes overnight.",
+      "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=900&q=85",
+      "camera": "Sony A7SIII • 24-70mm",
+      "lut": "Technicolor Cyan Core",
+      "accent": "from-cyan-500/30 to-indigo-600/35"
+    },
+    {
+      "title": "Echoes of Belagavi",
+      "category": "Short Films",
+      "director": "Kabir Deshmukh",
+      "duration": "06:15",
+      "tag": "SHORT FILM",
+      "views": "31.4K",
+      "summary": "Award-winning student short exploring monsoon dusk, heritage architecture, and collegiate friendships across Jnana Sangama.",
+      "image": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=900&q=85",
+      "camera": "ARRI Alexa Mini LF",
+      "lut": "Vintage 35mm Tungsten",
+      "accent": "from-violet-500/35 to-fuchsia-600/30"
+    },
+    {
+      "title": "25th Convocation Live Multi-Cam",
+      "category": "Live Broadcast",
+      "director": "Ishita Rao",
+      "duration": "04:05",
+      "tag": "MULTI-CAM 4K",
+      "views": "62.1K",
+      "summary": "5-camera ATEM switched broadcast with real-time lower-thirds, satellite uplink, and global alumni stream.",
+      "image": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=900&q=85",
+      "camera": "Sony FX6 & ATEM ISO",
+      "lut": "Broadcast Rec.709 Clean",
+      "accent": "from-emerald-500/30 to-indigo-600/35"
+    },
+    {
+      "title": "Neon Stage: Battle of Bands",
+      "category": "Motion & VFX",
+      "director": "Elian Shetty",
+      "duration": "02:54",
+      "tag": "VFX REEL",
+      "views": "27.7K",
+      "summary": "Audio-reactive LED backdrop visuals paired with gimbal tracking shots, laser sync, and kinetic 3D typography.",
+      "image": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=900&q=85",
+      "camera": "Sony FX3 • DJI RS4",
+      "lut": "Neon Cyberpunk Grade",
+      "accent": "from-indigo-500/35 to-rose-500/30"
+    },
+    {
+      "title": "Jnana Sangama Campus Aerial FPV",
+      "category": "Drone Cinema",
+      "director": "Rohan Kamath",
+      "duration": "02:40",
+      "tag": "60FPS FPV",
+      "views": "35.8K",
+      "summary": "High-velocity acrobatic drone sweep over VTU headquarters, senate hall, lush botanical gardens, and tech parks.",
+      "image": "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=900&q=85",
+      "camera": "Custom 6S FPV • GoPro 12",
+      "lut": "Golden Dusk Vivid",
+      "accent": "from-amber-500/35 to-violet-600/30"
+    },
+    {
+      "title": "Formula Student Track Trials",
+      "category": "Aftermovies",
+      "director": "Varun Gowda",
+      "duration": "01:55",
+      "tag": "120FPS SLOW-MO",
+      "views": "23.4K",
+      "summary": "Adrenaline-fueled mechanical engineering documentary capturing the VTU racing car accelerating at dawn.",
+      "image": "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=900&q=85",
+      "camera": "Sony A7IV • 70-200mm",
+      "lut": "Monza High Contrast",
+      "accent": "from-rose-500/35 to-amber-600/30"
+    },
+    {
+      "title": "Kinetic Campus Brand Pack",
+      "category": "Motion & VFX",
+      "director": "Tanvi Naik",
+      "duration": "01:36",
+      "tag": "3D MOTION",
+      "views": "19.5K",
+      "summary": "Modular broadcast intro package and 3D stingers built for 12 VTU student clubs and university summits.",
+      "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=900&q=85",
+      "camera": "Blender 4.0 & After Effects",
+      "lut": "ACEScg Linear to Rec.709",
+      "accent": "from-purple-500/35 to-indigo-600/30"
+    }
+  ],
+  "vtu_media_creators": [
+    {
+      "name": "Arpan Satapathy",
+      "handle": "@arpan.cine",
+      "role": "Executive Creative Director & DOP",
+      "bio": "Directs overarching cinematic vision, multi-camera auditorium stage setups, and high-fidelity lighting master plans for university landmark productions.",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=85",
+      "stats": [
+        "Creative Lead",
+        "DOP Directorate",
+        "Sony FX3 Rig"
+      ]
+    },
+    {
+      "name": "Grish Ganeshgudi",
+      "handle": "@grish.visuals",
+      "role": "Head of Cinematography & Aerial",
+      "bio": "Commands on-ground cinema rigs, rapid FPV drone flythroughs, and dynamic stage tracking shots across mega campus festivals.",
+      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=85",
+      "stats": [
+        "Cinematography",
+        "FPV & RS4 Pro",
+        "Aerial Cinema"
+      ]
+    },
+    {
+      "name": "Sourabh Pote",
+      "handle": "@sunil.post",
+      "role": "Chief Editor & Colorist",
+      "bio": "Orchestrates rhythmic aftermovie narrative pacing, DaVinci Resolve film-emulation color workflows, and same-day highlight assemblies.",
+      "avatar": "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=85",
+      "stats": [
+        "Post Lead",
+        "DaVinci Resolve",
+        "Kodak 2383"
+      ]
+    },
+    {
+      "name": "Ramesh Bekkeri",
+      "handle": "@ramesh.live",
+      "role": "Live Production & Broadcast Director",
+      "bio": "Directs multi-camera auditorium switching, low-latency live broadcast streams, sound mix engineering, and campus event broadcast networks.",
+      "avatar": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=85",
+      "stats": [
+        "Broadcast Lead",
+        "ATEM Live Switch",
+        "Sound Systems"
+      ]
+    }
+  ],
+  "vtu_media_members": [
+    {
+      "name": "Vikram",
+      "category": "Core Team",
+      "role": "Club President & Lead Editor",
+      "dept": "Cinematography",
+      "handle": "@vikram.vtu",
+      "gear": "Sony FX3 • DaVinci Resolve Studio • Director Rig",
+      "credits": "President • 2VX23CB060 • Master Assembly",
+      "bio": "President of VTU Media Club (2VX23CB060). Leads executive operations, university institutional coverage, multi-cam auditorium broadcasts, and master editorial assembly.",
+      "img": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=85",
+      "exif": "2VX23CB060 • Sony FX3 • 35mm f/1.4"
+    },
+    {
+      "name": "Harshada",
+      "category": "Core Team",
+      "role": "Club Vice President",
+      "dept": "Cinematography",
+      "handle": "@harshada.vtu",
+      "gear": "Production Coordination • Logistics Matrix",
+      "credits": "Vice President • 2VX24CB027 • Executive Wing",
+      "bio": "Vice President of VTU Media Club (2VX24CB027). Coordinates sister club partnerships, production logistics, university media liaison, and festival event planning.",
+      "img": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=85",
+      "exif": "2VX24CB027 • Production Directorate"
+    },
+    {
+      "name": "Nihal",
+      "category": "Core Team",
+      "role": "Lead Videographer & Senior Editor",
+      "dept": "Cinematography",
+      "handle": "@nihal.cine",
+      "gear": "Sony A7IV • 24-70mm f/2.8 GM • S-Log3",
+      "credits": "Videography & Editing • 2VX25VL026",
+      "bio": "Leads on-ground camera operations (2VX25VL026), dynamic gimbal tracking shots, auditorium stages, and narrative aftermovie editing for flagship VTU productions.",
+      "img": "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=600&q=85",
+      "exif": "2VX25VL026 • 4K DCI • 1/120s • S-Log3"
+    },
+    {
+      "name": "Adarsh",
+      "category": "Core Team",
+      "role": "Head of PR & Graphic Design",
+      "dept": "Motion & VFX",
+      "handle": "@adarsh.creative",
+      "gear": "Adobe Photoshop • Illustrator • Brand Design",
+      "credits": "PR, Graphics & Treasury • 2VX24CB003",
+      "bio": "Heads Public Relations and Graphic Design (2VX24CB003). Manages media relations, brand identity suites, official posters, and oversees club treasury disbursements.",
+      "img": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=85",
+      "exif": "2VX24CB003 • Vector Art • PR Strategy"
+    },
+    {
+      "name": "Prajwal V Gowda",
+      "category": "Core Team",
+      "role": "Web UI/UX Lead & Data Systems",
+      "dept": "Motion & VFX",
+      "handle": "@prajwal.dev",
+      "gear": "React • Tailwind CSS • Cloud Data SAN",
+      "credits": "Web UI/UX & Data • 2VX24CB061",
+      "bio": "Architect of the VTU Media digital web platform (2VX24CB061). Designs interactive digital experiences, portal interfaces, and manages campus media databases.",
+      "img": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=600&q=85",
+      "exif": "2VX24CB061 • UI/UX Architecture"
+    },
+    {
+      "name": "Arun",
+      "category": "Members",
+      "role": "Cinematographer & Data Systems",
+      "dept": "Cinematography",
+      "handle": "@arun.visuals",
+      "gear": "Cinema Rigs • 4K DCI • High-Speed Storage",
+      "credits": "Videography & Data • 2VX25VL009",
+      "bio": "Captures multi-angle event videography (2VX25VL009) and manages real-time media ingestion, RAID archival storage, and digital asset workflows.",
+      "img": "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=600&q=85",
+      "exif": "2VX25VL009 • DCI 4K RAW • Ingest Desk"
+    },
+    {
+      "name": "Krutika",
+      "category": "Members",
+      "role": "Cinematographer & Camera Operator",
+      "dept": "Cinematography",
+      "handle": "@krutika.frames",
+      "gear": "Sony Cinema Line • 50mm f/1.4 Prime • Gimbal",
+      "credits": "Videography Team • 2VX25CS033",
+      "bio": "Captures expressive festival cinematography (2VX25CS033), stage performances, artistic slow-motion sequences, and speaker spotlight coverage.",
+      "img": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=85",
+      "exif": "2VX25CS033 • 50mm f/1.4 • 60fps"
+    },
+    {
+      "name": "Krupal",
+      "category": "Members",
+      "role": "Senior Video Editor",
+      "dept": "Editing & Color",
+      "handle": "@krupal.edits",
+      "gear": "DaVinci Resolve Studio • Premiere Pro",
+      "credits": "Editorial Team • 2VX25CB042",
+      "bio": "Drives rhythmic aftermovie pacing (2VX25CB042), rapid turnaround highlight cuts, and multi-track audio synching for university events.",
+      "img": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=85",
+      "exif": "2VX25CB042 • ProRes 422 HQ • 24fps"
+    },
+    {
+      "name": "Om",
+      "category": "Members",
+      "role": "Film Editor & Colorist",
+      "dept": "Editing & Color",
+      "handle": "@om.cuts",
+      "gear": "DaVinci Resolve • Final Cut Pro • Kodak 2383",
+      "credits": "Editorial Team • 2VX25RA029",
+      "bio": "Handles filmic color grading (2VX25RA029), dynamic range mastering, sound design integration, and documentary assembly.",
+      "img": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=85",
+      "exif": "2VX25RA029 • DaVinci Wide Gamut ACES"
+    },
+    {
+      "name": "Araman",
+      "category": "Core Team",
+      "role": "Social Media Lead",
+      "dept": "Editing & Color",
+      "handle": "@araman.social",
+      "gear": "Social Growth Strategy • CapCut Pro • Analytics",
+      "credits": "Social Media Lead • 2VX24CB014",
+      "bio": "Leads VTU Media's digital outreach (2VX24CB014), viral reel concepts, trend analytics, and real-time social broadcasting for campus life.",
+      "img": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=85",
+      "exif": "2VX24CB014 • 9:16 Vertical • Viral Desk"
+    },
+    {
+      "name": "Srushti",
+      "category": "Members",
+      "role": "Social Media Strategist",
+      "dept": "Editing & Color",
+      "handle": "@srushti.creates",
+      "gear": "Mobile Direction • Trend Algorithms",
+      "credits": "Social Media Team • 2VX25CB101",
+      "bio": "Crafts high-impact Instagram Reels (2VX25CB101), interactive campus stories, live fest broadcasts, and community highlight threads.",
+      "img": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=85",
+      "exif": "2VX25CB101 • 4K Vertical • Story Desk"
+    },
+    {
+      "name": "Keerti",
+      "category": "Members",
+      "role": "Digital Outreach Specialist",
+      "dept": "Editing & Color",
+      "handle": "@keerti.media",
+      "gear": "Community Ingest • Mobile Cinema",
+      "credits": "Social Media Team • 2VX24CB035",
+      "bio": "Fosters engagement across university departments (2VX24CB035), student clubs, live festival takeovers, and creator spotlight series.",
+      "img": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=85",
+      "exif": "2VX24CB035 • Social Community Desk"
+    },
+    {
+      "name": "Apoorva",
+      "category": "Members",
+      "role": "Social Media Content Specialist",
+      "dept": "Editing & Color",
+      "handle": "@apoorva.digital",
+      "gear": "Creative Copywriting • Visual Storytelling",
+      "credits": "Social Media Team • 2VX25CB126",
+      "bio": "Drafts engaging promotional campaigns (2VX25CB126), festival schedule announcements, and interactive audience polls.",
+      "img": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=85",
+      "exif": "2VX25CB126 • Copy & Visual Layouts"
+    },
+    {
+      "name": "Nagaraj",
+      "category": "Members",
+      "role": "Graphic Designer",
+      "dept": "Graphic Design",
+      "handle": "@nagaraj.design",
+      "gear": "Adobe Illustrator • Photoshop • Blender",
+      "credits": "Graphics Design Team • 2VX25VL028",
+      "bio": "Designs official event posters (2VX25VL028), print collateral, certificates, merchandise key art, and stage screen graphics.",
+      "img": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=85",
+      "exif": "2VX25VL028 • Vector Art & Key Graphics"
+    },
+    {
+      "name": "Agam",
+      "category": "Core Team",
+      "role": "Treasurer & Production Logistics",
+      "dept": "Live & Audio",
+      "handle": "@agam.production",
+      "gear": "Treasury Ingest • Equipment Logistics Matrix",
+      "credits": "Treasurer • 2VX25CB125 • Production",
+      "bio": "Oversees club treasury (2VX25CB125), equipment allocations, production requisitions, vendor coordination, and fest operational budgeting.",
+      "img": "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=600&q=85",
+      "exif": "2VX25CB125 • Financial & Gear Logistics"
+    }
+  ],
+  "vtu_media_gallery": [
+    {
+      "title": "Mainstage Laser Finale",
+      "cat": "Campus Fests",
+      "creator": "Aarav Deshpande",
+      "exif": "Sony FX3 • 35mm f/1.4 • ISO 1600 • 1/250s",
+      "img": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "title": "Backstage Portrait in Blue",
+      "cat": "Portraits",
+      "creator": "Mira Kulkarni",
+      "exif": "Sony A7IV • 85mm f/1.8 • ISO 640 • 1/160s",
+      "img": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "title": "Late Night Edit Suite",
+      "cat": "Behind the Scenes",
+      "creator": "Niharika Joshi",
+      "exif": "Sony A7SIII • 24mm f/2.0 • ISO 1250 • 1/50s",
+      "img": "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "title": "Crowd Euphoria — Day 2",
+      "cat": "Campus Fests",
+      "creator": "Varun Gowda",
+      "exif": "Canon R6 • 50mm f/1.4 • ISO 2000 • 1/320s",
+      "img": "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "title": "Monsoon Dusk Architecture",
+      "cat": "Cinematography",
+      "creator": "Rohan Kamath",
+      "exif": "Sony FX3 • 16mm f/2.8 • ISO 400 • 1/60s",
+      "img": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "title": "Acoustic Night Mic Check",
+      "cat": "Behind the Scenes",
+      "creator": "Aditya Patil",
+      "exif": "Sony A7IV • 50mm f/1.8 • ISO 800 • 1/125s",
+      "img": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "title": "Editorial Studio Warmth",
+      "cat": "Portraits",
+      "creator": "Mira Kulkarni",
+      "exif": "Sony A7IV • 85mm f/1.4 • ISO 200 • 1/200s",
+      "img": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "title": "Cinema Rig Calibration",
+      "cat": "Behind the Scenes",
+      "creator": "Pranav Hegde",
+      "exif": "Sony FX3 • 35mm f/2.0 • ISO 500 • 1/100s",
+      "img": "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "title": "Neon Keylight Study",
+      "cat": "Portraits",
+      "creator": "Elian Shetty",
+      "exif": "Sony A7SIII • 50mm f/1.2 • ISO 1000 • 1/250s",
+      "img": "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "title": "Track Finals Golden Hour",
+      "cat": "Sports & Action",
+      "creator": "Varun Gowda",
+      "exif": "Sony A7IV • 70-200mm f/2.8 • ISO 320 • 1/1600s",
+      "img": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "title": "Spotlight Silhouette",
+      "cat": "Campus Fests",
+      "creator": "Pranav Hegde",
+      "exif": "Sony FX3 • 85mm f/1.8 • ISO 1600 • 1/200s",
+      "img": "https://images.unsplash.com/photo-1551818255-e6e10975bc17?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "title": "Motion Shader Study",
+      "cat": "Cinematography",
+      "creator": "Tanvi Naik",
+      "exif": "Blender Cycles • 4K ACEScg • 60fps",
+      "img": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "title": "Director's Slate Take 4",
+      "cat": "Cinematography",
+      "creator": "Kabir Deshmukh",
+      "exif": "Sony FX3 • 24mm f/1.4 • ISO 800 • 1/48s",
+      "img": "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "title": "Auditorium Keynote Live",
+      "cat": "Behind the Scenes",
+      "creator": "Ishita Rao",
+      "exif": "Sony A7IV • 35mm f/1.8 • ISO 1000 • 1/125s",
+      "img": "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "title": "Starlit Campus Ridge",
+      "cat": "Cinematography",
+      "creator": "Rohan Kamath",
+      "exif": "Sony A7SIII • 14mm f/1.8 • ISO 3200 • 15s",
+      "img": "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "title": "Lens Flare Close-Up",
+      "cat": "Behind the Scenes",
+      "creator": "Aarav Deshpande",
+      "exif": "Sony FX3 • 50mm f/1.2 • ISO 400 • 1/500s",
+      "img": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "title": "Hackathon Midnight Glow",
+      "cat": "Sports & Action",
+      "creator": "Diya Patil",
+      "exif": "Sony A7IV • 35mm f/1.4 • ISO 1250 • 1/100s",
+      "img": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "title": "DJ Console Strobe",
+      "cat": "Campus Fests",
+      "creator": "Elian Shetty",
+      "exif": "Sony FX3 • 24mm f/1.4 • ISO 2500 • 1/200s",
+      "img": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80"
+    }
+  ],
+  "vtu_media_hero_video": {
+    "badge": "Latest Production",
+    "titlePrefix": "VTU Fest '26",
+    "titleItalic": "Official Aftermovie",
+    "title": "VTU Fest '26 Official Aftermovie",
+    "runtime": "03:42 • 4K RAW",
+    "shootLead": "Aarav Deshpande",
+    "buttonText": "Watch Reel",
+    "videoUrl": "assets/vtu_aftermovie.mp4",
+    "driveUrl": "https://drive.google.com/file/d/16KJ910LFb41wSqM4JIhKxU3kTfws1dIA/view?usp=sharing"
+  },
+  "lastUpdated": "2026-11-25T14:45:00Z"
+}

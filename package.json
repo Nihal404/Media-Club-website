@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node -e \"const fs=require('fs'); fs.mkdirSync('dist', {recursive:true}); ['index.html','admin.html','vercel.json'].forEach(f => fs.existsSync(f) && fs.copyFileSync(f, 'dist/'+f)); ['assets','src'].forEach(d => fs.existsSync(d) && fs.cpSync(d, 'dist/'+d, {recursive:true})); console.log('Static site build complete for Vercel.');\"",
+    "build": "node -e \"const fs=require('fs'); fs.mkdirSync('dist', {recursive:true}); ['index.html','admin.html','vercel.json','site-data.json'].forEach(f => fs.existsSync(f) && fs.copyFileSync(f, 'dist/'+f)); ['assets','src'].forEach(d => fs.existsSync(d) && fs.cpSync(d, 'dist/'+d, {recursive:true})); console.log('Static site build complete for Vercel.');\"",
     "preview": "vite preview"
   },
   "dependencies": {

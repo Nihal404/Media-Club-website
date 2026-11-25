@@ -79,31 +79,32 @@
 
       <form onsubmit="handlePinSubmit(event)" class="space-y-4">
         <div>
-          <label for="pinInput" class="block text-xs font-mono text-zinc-400 mb-2">ENTER ADMIN PIN</label>
+          <label for="pinInput" class="block text-xs font-mono text-zinc-400 mb-2">ENTER ADMIN PIN / MASTER PASSWORD</label>
           <input
             id="pinInput"
             type="password"
-            maxlength="10"
+            maxlength="32"
             required
-            placeholder="â€¢ â€¢ â€¢ â€¢"
-            class="w-full text-center text-2xl tracking-[0.5em] py-3 rounded-2xl glass-input text-white focus:outline-none focus:border-[#B21F29] font-mono"
+            placeholder="••••••••"
+            class="w-full text-center text-xl tracking-[0.3em] py-3 rounded-2xl glass-input text-white focus:outline-none focus:border-[#B21F29] font-mono"
             autofocus
           />
-          <p id="pinError" class="text-xs text-red-400 mt-2 hidden">Incorrect PIN. Hint: Default is 2026</p>
+          <p id="pinError" class="text-xs text-red-400 mt-2 hidden">Access Denied. Incorrect Master PIN.</p>
         </div>
 
         <button
+          id="pinSubmitBtn"
           type="submit"
           class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#B21F29] to-[#930510] text-white font-semibold text-sm hover:brightness-110 shadow-lg shadow-[#B21F29]/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
         >
           <span>Unlock Admin Panel</span>
-          <span>â†’</span>
+          <span>→</span>
         </button>
       </form>
 
       <div class="pt-4 border-t border-white/[0.08] flex items-center justify-between text-xs text-zinc-500 font-mono">
-        <span>Default PIN: <strong>2026</strong></span>
-        <a href="index.html" class="hover:text-zinc-300">Return to Site â†’</a>
+        <span>Protected Console</span>
+        <a href="index.html" class="hover:text-zinc-300">Return to Site →</a>
       </div>
     </div>
   </div>
@@ -122,39 +123,47 @@
               <span>VTU MEDIA CMS</span>
               <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-mono font-semibold">LIVE</span>
             </h1>
-            <p class="text-[11px] text-zinc-400 font-mono">Photos â€¢ Videos â€¢ Team Roster</p>
+            <p class="text-[11px] text-zinc-400 font-mono">Photos • Videos • Team Roster</p>
           </div>
         </div>
 
-        <div class="flex items-center gap-2.5">
+        <div class="flex items-center flex-wrap gap-2">
+          <!-- Primary Action: Force Update Live Site -->
+          <button
+            onclick="openForceUpdateModal()"
+            title="Force publish all updates so they appear live on Vercel for all visitors"
+            class="px-4 py-2 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-[#B21F29] to-[#d62839] hover:from-[#d62839] hover:to-[#B21F29] border border-[#B21F29]/60 shadow-lg shadow-[#B21F29]/30 transition-all flex items-center gap-1.5 cursor-pointer"
+          >
+            <span class="text-amber-300">⚡</span>
+            <span>Force Update Live Site</span>
+          </button>
+
           <a
             href="index.html"
             target="_blank"
-            class="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 transition-all flex items-center gap-1.5"
+            class="px-3.5 py-2 rounded-xl text-xs font-semibold text-white bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 transition-all flex items-center gap-1.5"
           >
             <svg class="w-3.5 h-3.5 text-zinc-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
             </svg>
-            <span>View Live Site</span>
-            <span class="text-xs text-zinc-400">â†—</span>
+            <span class="hidden sm:inline">View Site</span>
+            <span class="text-xs text-zinc-400">↗</span>
           </a>
 
           <button
-            onclick="exportBackupJson()"
-            title="Download full JSON backup of website data"
-            class="px-3.5 py-2 rounded-xl text-xs font-mono text-zinc-300 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 transition-all flex items-center gap-1.5"
+            onclick="openChangePinModal()"
+            title="Change your private secret master PIN"
+            class="px-3 py-2 rounded-xl text-xs font-mono text-zinc-300 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 transition-all flex items-center gap-1.5 cursor-pointer"
           >
-            <svg class="w-3.5 h-3.5 text-[#B21F29]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-            </svg>
-            <span class="hidden sm:inline">Export</span>
+            <span class="text-amber-400">🔑</span>
+            <span class="hidden sm:inline">Change PIN</span>
           </button>
 
           <button
             onclick="copySyncData()"
             title="Copy all data to clipboard so you can paste into your Vercel hosted admin"
-            class="px-3.5 py-2 rounded-xl text-xs font-mono text-zinc-300 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 transition-all flex items-center gap-1.5"
+            class="px-3 py-2 rounded-xl text-xs font-mono text-zinc-300 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 transition-all flex items-center gap-1.5 cursor-pointer"
           >
             <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
@@ -165,7 +174,7 @@
           <button
             onclick="pasteSyncData()"
             title="Paste & sync data copied from local admin to this hosted site"
-            class="px-3.5 py-2 rounded-xl text-xs font-mono text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 transition-all flex items-center gap-1.5"
+            class="px-3 py-2 rounded-xl text-xs font-mono text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 transition-all flex items-center gap-1.5 cursor-pointer"
           >
             <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
@@ -174,9 +183,20 @@
           </button>
 
           <button
+            onclick="exportBackupJson()"
+            title="Download full JSON backup of website data"
+            class="px-3 py-2 rounded-xl text-xs font-mono text-zinc-300 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 transition-all flex items-center gap-1.5 cursor-pointer"
+          >
+            <svg class="w-3.5 h-3.5 text-[#B21F29]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+            </svg>
+            <span class="hidden sm:inline">Export</span>
+          </button>
+
+          <button
             onclick="document.getElementById('importFileInput').click()"
             title="Restore website data from JSON backup"
-            class="px-3.5 py-2 rounded-xl text-xs font-mono text-zinc-300 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 transition-all flex items-center gap-1.5"
+            class="px-3 py-2 rounded-xl text-xs font-mono text-zinc-300 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 transition-all flex items-center gap-1.5 cursor-pointer"
           >
             <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
@@ -712,6 +732,122 @@
           <button type="button" onclick="closePhotoModal()" class="px-4 py-2 rounded-xl text-xs text-zinc-400 hover:text-white">Cancel</button>
           <button type="submit" class="px-6 py-2.5 rounded-xl bg-[#B21F29] hover:bg-[#930510] text-white text-xs font-semibold shadow-lg shadow-[#B21F29]/30">Save Photo</button>
         </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- FORCE UPDATE LIVE SITE MODAL (VERCEL / GITHUB SYNC)                  -->
+  <!-- ===================================================================== -->
+  <div id="forceUpdateModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl">
+    <div class="glass-modal relative w-full max-w-xl max-h-[92vh] overflow-y-auto custom-scroll rounded-3xl p-6 sm:p-8 space-y-6">
+      <div class="flex items-center justify-between border-b border-white/[0.08] pb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-[#B21F29]/20 border border-[#B21F29]/50 flex items-center justify-center text-xl text-amber-300">⚡</div>
+          <div>
+            <h3 class="text-lg font-bold text-white">Force Update Live Site (Vercel)</h3>
+            <p class="text-xs text-zinc-400">Make your CMS changes live permanently for all visitors worldwide</p>
+          </div>
+        </div>
+        <button onclick="closeForceUpdateModal()" class="w-8 h-8 rounded-full bg-white/[0.06] hover:bg-white/[0.14] flex items-center justify-center text-zinc-300">✕</button>
+      </div>
+
+      <!-- Cloud Deploy Option (Automated Vercel Sync) -->
+      <div class="p-5 rounded-2xl bg-white/[0.03] border border-white/10 space-y-3.5">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-amber-400 uppercase tracking-wider font-mono">Option 1: 1-Click Direct Vercel Deploy</span>
+          <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-mono">Automated Cloud Build</span>
+        </div>
+        <p class="text-xs text-zinc-300 leading-relaxed">
+          Pushes the updated <code class="text-[#fda4af] font-mono bg-black/40 px-1 py-0.5 rounded">site-data.json</code> directly to your GitHub repository (<strong>Nihal404/Media-Club-website</strong>). Vercel will instantly trigger a live build and deploy your changes to all visitors in ~15 seconds.
+        </p>
+        <div class="space-y-1.5">
+          <label class="block text-[11px] font-mono text-zinc-400">GITHUB PERSONAL ACCESS TOKEN (SAVED ONLY ON YOUR DEVICE):</label>
+          <div class="flex gap-2">
+            <input
+              id="githubTokenInput"
+              type="password"
+              placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+              class="flex-1 px-3.5 py-2.5 rounded-xl glass-input text-xs text-white font-mono focus:outline-none focus:border-[#B21F29]"
+            />
+            <button onclick="saveGithubToken()" class="px-3.5 py-2 rounded-xl text-xs font-mono bg-white/10 hover:bg-white/15 text-white cursor-pointer">Save</button>
+          </div>
+          <p class="text-[10px] text-zinc-500">
+            Need a token? <a href="https://github.com/settings/tokens/new?scopes=repo&description=VTU+Media+Club+Live+Deploy" target="_blank" class="text-[#fda4af] hover:underline font-mono">Click here to generate a token with 'repo' scope</a> on GitHub.
+          </p>
+        </div>
+        <button
+          id="btnDeployGithub"
+          onclick="deployToGithubLive()"
+          class="w-full py-3 rounded-xl bg-gradient-to-r from-[#B21F29] to-[#d62839] hover:brightness-110 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-[#B21F29]/30 transition-all cursor-pointer"
+        >
+          <span>🚀 Deploy Directly to Live Site</span>
+        </button>
+        <div id="githubDeployStatus" class="hidden text-xs font-mono p-3 rounded-xl bg-black/50 border border-white/10 leading-relaxed"></div>
+      </div>
+
+      <!-- Local Project Save Option -->
+      <div class="p-5 rounded-2xl bg-white/[0.03] border border-white/10 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-zinc-300 uppercase tracking-wider font-mono">Option 2: Save to Project File (d:\website)</span>
+          <span class="px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 text-[10px] font-mono">Local Workspace</span>
+        </div>
+        <p class="text-xs text-zinc-300 leading-relaxed">
+          Saves the latest data directly into your <code class="text-emerald-400 font-mono bg-black/40 px-1 py-0.5 rounded">site-data.json</code> file in this workspace. Then you or your assistant can run <code class="text-zinc-300 font-mono">git push</code> anytime.
+        </p>
+        <button
+          onclick="saveLocalSiteDataFile()"
+          class="w-full py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
+        >
+          <span>💾 Download / Save site-data.json</span>
+        </button>
+      </div>
+
+      <!-- Clipboard Sync Option -->
+      <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center justify-between">
+        <div>
+          <h4 class="text-xs font-bold text-white">Browser-to-Browser Instant Sync</h4>
+          <p class="text-[11px] text-zinc-400">Copy current sync package to paste into another browser</p>
+        </div>
+        <button onclick="copySyncData(); closeForceUpdateModal();" class="px-3.5 py-2 rounded-xl text-xs font-mono text-zinc-200 bg-white/10 hover:bg-white/20 transition-all cursor-pointer">Copy Sync Data</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- CHANGE MASTER PIN MODAL                                              -->
+  <!-- ===================================================================== -->
+  <div id="changePinModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl">
+    <div class="glass-modal relative w-full max-w-md rounded-3xl p-6 sm:p-8 space-y-6">
+      <div class="flex items-center justify-between border-b border-white/[0.08] pb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-[#B21F29]/20 border border-[#B21F29]/40 flex items-center justify-center text-xl text-amber-400">🔑</div>
+          <div>
+            <h3 class="text-lg font-bold text-white">Change Master PIN</h3>
+            <p class="text-xs text-zinc-400">Set a private secret password only YOU know</p>
+          </div>
+        </div>
+        <button onclick="closeChangePinModal()" class="w-8 h-8 rounded-full bg-white/[0.06] hover:bg-white/[0.14] flex items-center justify-center text-zinc-300">✕</button>
+      </div>
+
+      <form onsubmit="handleChangePinSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-mono text-zinc-400 mb-1.5">CURRENT PIN</label>
+          <input id="currPinInput" type="password" required placeholder="Enter current PIN" class="w-full px-4 py-2.5 rounded-xl glass-input text-sm text-white font-mono focus:outline-none focus:border-[#B21F29]" />
+        </div>
+        <div>
+          <label class="block text-xs font-mono text-zinc-400 mb-1.5">NEW SECRET PIN / MASTER PASSWORD</label>
+          <input id="newPinInput" type="password" minlength="4" required placeholder="Enter new secret PIN" class="w-full px-4 py-2.5 rounded-xl glass-input text-sm text-white font-mono focus:outline-none focus:border-[#B21F29]" />
+        </div>
+        <div>
+          <label class="block text-xs font-mono text-zinc-400 mb-1.5">CONFIRM NEW PIN</label>
+          <input id="confirmPinInput" type="password" minlength="4" required placeholder="Re-enter new secret PIN" class="w-full px-4 py-2.5 rounded-xl glass-input text-sm text-white font-mono focus:outline-none focus:border-[#B21F29]" />
+        </div>
+        <p id="changePinError" class="text-xs text-red-400 hidden"></p>
+
+        <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-[#B21F29] to-[#930510] text-white font-semibold text-xs hover:brightness-110 shadow-lg shadow-[#B21F29]/30 transition-all cursor-pointer">
+          Save New Master PIN
+        </button>
       </form>
     </div>
   </div>
@@ -1306,17 +1442,68 @@
       }, 3000);
     }
 
-    // --- Authentication ---
-    function handlePinSubmit(e) {
+    // --- Cryptographic Authentication & Access Control ---
+    async function hashPin(str) {
+      if (!window.crypto || !window.crypto.subtle) {
+        // Fallback simple hash if subtle crypto not available
+        let h = 0;
+        for (let i = 0; i < str.length; i++) h = ((h << 5) - h) + str.charCodeAt(i) | 0;
+        return 'fb_' + Math.abs(h);
+      }
+      const buffer = new TextEncoder().encode(str);
+      const hash = await crypto.subtle.digest('SHA-256', buffer);
+      return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function handlePinSubmit(e) {
       e.preventDefault();
-      const pin = document.getElementById('pinInput').value.trim();
-      if (pin === '2026') {
+      const errEl = document.getElementById('pinError');
+      errEl.classList.add('hidden');
+
+      // Check lockout status
+      const lockoutUntil = parseInt(sessionStorage.getItem('vtu_pin_lockout') || '0', 10);
+      if (Date.now() < lockoutUntil) {
+        const secsLeft = Math.ceil((lockoutUntil - Date.now()) / 1000);
+        errEl.textContent = `Security lockout active. Please wait ${secsLeft}s before retrying.`;
+        errEl.classList.remove('hidden');
+        return;
+      }
+
+      const inputPin = document.getElementById('pinInput').value.trim();
+      const inputHash = await hashPin(inputPin);
+      const storedHash = localStorage.getItem('vtu_admin_pin_hash');
+
+      let isValid = false;
+      if (storedHash) {
+        isValid = (inputHash === storedHash);
+      } else {
+        // Default master PINs accepted on fresh install
+        isValid = (inputPin === '1998' || inputPin === '2026');
+      }
+
+      if (isValid) {
         sessionStorage.setItem('vtu_admin_auth', 'true');
+        sessionStorage.removeItem('vtu_pin_fails');
+        sessionStorage.removeItem('vtu_pin_lockout');
         document.getElementById('pinGateModal').classList.add('hidden');
         document.getElementById('adminApp').classList.remove('hidden');
         initAdminData();
+        // Prefill GitHub token input if stored
+        const tInput = document.getElementById('githubTokenInput');
+        if (tInput && localStorage.getItem('vtu_github_pat')) {
+          tInput.value = localStorage.getItem('vtu_github_pat');
+        }
       } else {
-        document.getElementById('pinError').classList.remove('hidden');
+        let fails = parseInt(sessionStorage.getItem('vtu_pin_fails') || '0', 10) + 1;
+        sessionStorage.setItem('vtu_pin_fails', fails.toString());
+        if (fails >= 5) {
+          sessionStorage.setItem('vtu_pin_lockout', (Date.now() + 5 * 60 * 1000).toString());
+          errEl.textContent = 'Too many failed attempts. Console locked for 5 minutes.';
+        } else {
+          errEl.textContent = `Access Denied. Incorrect PIN. (${5 - fails} attempts remaining)`;
+        }
+        errEl.classList.remove('hidden');
+        document.getElementById('pinInput').value = '';
       }
     }
 
@@ -1331,11 +1518,29 @@
         document.getElementById('pinGateModal').classList.add('hidden');
         document.getElementById('adminApp').classList.remove('hidden');
         initAdminData();
+        const tInput = document.getElementById('githubTokenInput');
+        if (tInput && localStorage.getItem('vtu_github_pat')) {
+          tInput.value = localStorage.getItem('vtu_github_pat');
+        }
       }
     });
 
-    // --- Load Data from LocalStorage or Fallback ---
-    function initAdminData() {
+    // --- Load Data from LocalStorage, Live Server, or Fallback ---
+    async function initAdminData() {
+      if (!localStorage.getItem('vtu_media_members') && !localStorage.getItem('vtu_media_creators')) {
+        try {
+          const res = await fetch('site-data.json?v=' + Date.now());
+          if (res.ok) {
+            const data = await res.json();
+            if (data.vtu_media_members) localStorage.setItem('vtu_media_members', JSON.stringify(data.vtu_media_members));
+            if (data.vtu_media_creators) localStorage.setItem('vtu_media_creators', JSON.stringify(data.vtu_media_creators));
+            if (data.vtu_media_gallery) localStorage.setItem('vtu_media_gallery', JSON.stringify(data.vtu_media_gallery));
+            if (data.vtu_media_productions) localStorage.setItem('vtu_media_productions', JSON.stringify(data.vtu_media_productions));
+            if (data.vtu_media_hero_video) localStorage.setItem('vtu_media_hero_video', JSON.stringify(data.vtu_media_hero_video));
+          }
+        } catch (e) {}
+      }
+
       try {
         const m = localStorage.getItem('vtu_media_members');
         membersData = m ? JSON.parse(m) : [...DEFAULT_MEMBERS];
@@ -2262,6 +2467,213 @@
         showToast("Reset to defaults!");
         setTimeout(() => window.location.reload(), 800);
       }
+    }
+
+    // =======================================================================
+    // FORCE UPDATE LIVE SITE & MASTER SECURITY CONTROLS
+    // =======================================================================
+    function openForceUpdateModal() {
+      const modal = document.getElementById('forceUpdateModal');
+      if (modal) modal.classList.remove('hidden');
+      const tInput = document.getElementById('githubTokenInput');
+      if (tInput && localStorage.getItem('vtu_github_pat')) {
+        tInput.value = localStorage.getItem('vtu_github_pat');
+      }
+    }
+
+    function closeForceUpdateModal() {
+      const modal = document.getElementById('forceUpdateModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function openChangePinModal() {
+      document.getElementById('changePinError').classList.add('hidden');
+      document.getElementById('currPinInput').value = '';
+      document.getElementById('newPinInput').value = '';
+      document.getElementById('confirmPinInput').value = '';
+      document.getElementById('changePinModal').classList.remove('hidden');
+    }
+
+    function closeChangePinModal() {
+      document.getElementById('changePinModal').classList.add('hidden');
+    }
+
+    async function handleChangePinSubmit(e) {
+      e.preventDefault();
+      const errEl = document.getElementById('changePinError');
+      errEl.classList.add('hidden');
+
+      const currPin = document.getElementById('currPinInput').value.trim();
+      const newPin = document.getElementById('newPinInput').value.trim();
+      const confirmPin = document.getElementById('confirmPinInput').value.trim();
+
+      // Verify current PIN
+      const currHash = await hashPin(currPin);
+      const storedHash = localStorage.getItem('vtu_admin_pin_hash');
+      let currValid = false;
+      if (storedHash) {
+        currValid = (currHash === storedHash);
+      } else {
+        currValid = (currPin === '1998' || currPin === '2026');
+      }
+
+      if (!currValid) {
+        errEl.textContent = "Current PIN is incorrect.";
+        errEl.classList.remove('hidden');
+        return;
+      }
+
+      if (newPin.length < 4) {
+        errEl.textContent = "New PIN must be at least 4 characters.";
+        errEl.classList.remove('hidden');
+        return;
+      }
+
+      if (newPin !== confirmPin) {
+        errEl.textContent = "New PIN and confirmation do not match.";
+        errEl.classList.remove('hidden');
+        return;
+      }
+
+      const newHash = await hashPin(newPin);
+      localStorage.setItem('vtu_admin_pin_hash', newHash);
+      closeChangePinModal();
+      showToast("🔒 Master PIN updated! Only you can now unlock this admin portal.");
+    }
+
+    function saveGithubToken() {
+      const val = document.getElementById('githubTokenInput').value.trim();
+      if (!val) {
+        localStorage.removeItem('vtu_github_pat');
+        showToast("GitHub token removed.");
+      } else {
+        localStorage.setItem('vtu_github_pat', val);
+        showToast("GitHub token saved securely on your device!");
+      }
+    }
+
+    async function deployToGithubLive() {
+      const tokenInput = document.getElementById('githubTokenInput');
+      const token = (tokenInput ? tokenInput.value.trim() : '') || localStorage.getItem('vtu_github_pat') || '';
+      if (!token) {
+        alert("Please enter or generate a GitHub Personal Access Token to deploy automatically.");
+        return;
+      }
+      localStorage.setItem('vtu_github_pat', token);
+
+      const statusEl = document.getElementById('githubDeployStatus');
+      const btn = document.getElementById('btnDeployGithub');
+      statusEl.classList.remove('hidden', 'text-red-400', 'text-emerald-400');
+      statusEl.classList.add('text-amber-400');
+      statusEl.textContent = "⏳ Step 1/3: Connecting to GitHub repository (Nihal404/Media-Club-website)...";
+      btn.disabled = true;
+
+      try {
+        const repo = 'Nihal404/Media-Club-website';
+        const path = 'site-data.json';
+
+        // 1. Fetch current file SHA
+        let sha = null;
+        try {
+          const checkRes = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Accept': 'application/vnd.github.v3+json'
+            }
+          });
+          if (checkRes.ok) {
+            const data = await checkRes.json();
+            sha = data.sha;
+          }
+        } catch (e) {}
+
+        statusEl.textContent = "⏳ Step 2/3: Bundling latest team, storytellers, gallery & video content...";
+
+        const payload = {
+          vtu_media_productions: productionsData,
+          vtu_media_creators: creatorsData,
+          vtu_media_members: membersData,
+          vtu_media_gallery: galleryData,
+          vtu_media_hero_video: heroVideoData,
+          lastUpdated: new Date().toISOString()
+        };
+
+        const jsonStr = JSON.stringify(payload, null, 2);
+        // UTF-8 to base64
+        const base64Content = btoa(unescape(encodeURIComponent(jsonStr)));
+
+        statusEl.textContent = "⏳ Step 3/3: Committing to GitHub & triggering Vercel build...";
+
+        const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: 'feat(cms): force update live site content from admin portal',
+            content: base64Content,
+            sha: sha || undefined
+          })
+        });
+
+        if (!putRes.ok) {
+          const errData = await putRes.json();
+          throw new Error(errData.message || ('GitHub API Error ' + putRes.status));
+        }
+
+        statusEl.classList.remove('text-amber-400');
+        statusEl.classList.add('text-emerald-400');
+        statusEl.innerHTML = "✅ <strong>Live Update Deployed!</strong><br>Successfully pushed to GitHub. Vercel is building the live site right now.<br>All visitors will see these updates in ~15 seconds!";
+        showToast("🚀 Live site force updated successfully!");
+      } catch (err) {
+        statusEl.classList.remove('text-amber-400');
+        statusEl.classList.add('text-red-400');
+        statusEl.textContent = "❌ Deployment failed: " + err.message;
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    async function saveLocalSiteDataFile() {
+      const payload = {
+        vtu_media_productions: productionsData,
+        vtu_media_creators: creatorsData,
+        vtu_media_members: membersData,
+        vtu_media_gallery: galleryData,
+        vtu_media_hero_video: heroVideoData,
+        lastUpdated: new Date().toISOString()
+      };
+      const jsonStr = JSON.stringify(payload, null, 2);
+
+      // Try File System Access API if supported (Chrome/Edge)
+      if (window.showSaveFilePicker) {
+        try {
+          const handle = await window.showSaveFilePicker({
+            suggestedName: 'site-data.json',
+            types: [{ description: 'JSON File', accept: { 'application/json': ['.json'] } }]
+          });
+          const writable = await handle.createWritable();
+          await writable.write(jsonStr);
+          await writable.close();
+          showToast("Saved directly to site-data.json!");
+          return;
+        } catch (e) {
+          if (e.name === 'AbortError') return;
+        }
+      }
+
+      // Fallback: standard browser download
+      const blob = new Blob([jsonStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'site-data.json';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast("site-data.json downloaded! Place it in your project folder.");
+    }
     }
   </script>
 </body>

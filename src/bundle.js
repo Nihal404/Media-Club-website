@@ -1086,6 +1086,8 @@ const GlowCursor = ({
         if (teamSection) {
           teamSection.style.display = '';
           teamSection.style.animation = 'pageSlideIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both';
+          if (typeof renderAllMembers === 'function') renderAllMembers();
+          if (typeof renderCreators === 'function') renderCreators();
         }
         if (footer) footer.style.display = '';
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1218,6 +1220,9 @@ const GlowCursor = ({
         if (typeof applyHeroVideoConfig === 'function') {
           applyHeroVideoConfig();
         }
+        if (typeof hydrateFromLiveSiteData === 'function') {
+          hydrateFromLiveSiteData();
+        }
 
         // Coverflow touch swipe support
         var cfTouchStartX = 0;
@@ -1275,11 +1280,42 @@ const GlowCursor = ({
     function getStoredData(key, fallback) {
       try {
         const item = localStorage.getItem(key);
-        return item ? JSON.parse(item) : fallback;
+        if (item) return JSON.parse(item);
+        if (window.__LIVE_SITE_DATA__ && window.__LIVE_SITE_DATA__[key]) {
+          return window.__LIVE_SITE_DATA__[key];
+        }
+        return fallback;
       } catch (e) {
         return fallback;
       }
     }
+
+    async function hydrateFromLiveSiteData() {
+      try {
+        const res = await fetch('site-data.json?v=' + Date.now(), { cache: 'no-store' });
+        if (res.ok) {
+          const liveData = await res.json();
+          window.__LIVE_SITE_DATA__ = liveData;
+          let changed = false;
+          ['vtu_media_productions', 'vtu_media_creators', 'vtu_media_members', 'vtu_media_gallery', 'vtu_media_hero_video'].forEach(k => {
+            if (liveData[k]) {
+              const current = localStorage.getItem(k);
+              const serialized = JSON.stringify(liveData[k]);
+              if (!current || current !== serialized) {
+                localStorage.setItem(k, serialized);
+                changed = true;
+              }
+            }
+          });
+          if (changed && typeof refreshAllDynamicSections === 'function') {
+            refreshAllDynamicSections();
+          }
+        }
+      } catch (err) {
+        console.warn('Hydration from site-data.json fallback:', err);
+      }
+    }
+    window.hydrateFromLiveSiteData = hydrateFromLiveSiteData;
 
     /* -----------------------------------------------------------------------
      * 1. DATA REPOSITORY EMBEDDED
