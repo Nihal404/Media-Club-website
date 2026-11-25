@@ -1154,7 +1154,7 @@ const GlowCursor = ({
 
         // Dismiss cinema preloader
         if (window.dismissPreloader) {
-          setTimeout(window.dismissPreloader, 4000);
+          setTimeout(window.dismissPreloader, 5000);
         }
       } catch (err) {
         console.error('VTU Media Club React mount error:', err);
