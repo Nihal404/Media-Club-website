@@ -2812,7 +2812,7 @@ const GlowCursor = ({
             <p class="text-xs text-zinc-300 leading-relaxed">${c.bio}</p>
           </div>
           <div class="flex items-center justify-between pt-4 mt-4 border-t border-white/[0.08] text-[11px] font-mono text-zinc-400">
-            ${c.stats.map(s => `<span class="px-2 py-0.5 rounded bg-white/[0.04] text-zinc-300">${s}</span>`).join('')}
+            ${(Array.isArray(c.stats) ? c.stats : [c.role || "VTU Media", "Creative"]).map(s => `<span class="px-2 py-0.5 rounded bg-white/[0.04] text-zinc-300">${s}</span>`).join('')}
           </div>
         </div>
       `).join('');
