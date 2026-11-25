@@ -148,7 +148,29 @@
             <svg class="w-3.5 h-3.5 text-[#B21F29]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
             </svg>
-            <span class="hidden sm:inline">Export Backup</span>
+            <span class="hidden sm:inline">Export</span>
+          </button>
+
+          <button
+            onclick="copySyncData()"
+            title="Copy all data to clipboard so you can paste into your Vercel hosted admin"
+            class="px-3.5 py-2 rounded-xl text-xs font-mono text-zinc-300 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 transition-all flex items-center gap-1.5"
+          >
+            <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+            </svg>
+            <span class="hidden sm:inline">Copy Sync</span>
+          </button>
+
+          <button
+            onclick="pasteSyncData()"
+            title="Paste & sync data copied from local admin to this hosted site"
+            class="px-3.5 py-2 rounded-xl text-xs font-mono text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 transition-all flex items-center gap-1.5"
+          >
+            <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+            </svg>
+            <span class="hidden sm:inline">Paste &amp; Sync</span>
           </button>
 
           <button
@@ -159,7 +181,7 @@
             <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
             </svg>
-            <span class="hidden sm:inline">Import JSON</span>
+            <span class="hidden sm:inline">Import</span>
           </button>
           <input type="file" id="importFileInput" accept=".json" class="hidden" onchange="handleImportJson(event)" />
 
@@ -2129,11 +2151,71 @@
     }
 
     // =======================================================================
-    // BACKUP & RESTORE
+    // BACKUP, RESTORE & 1-CLICK CROSS-ORIGIN SYNC
     // =======================================================================
+    function copySyncData() {
+      const payload = {
+        vtu_media_members: membersData,
+        vtu_media_creators: creatorsData,
+        vtu_media_gallery: galleryData,
+        vtu_media_productions: productionsData,
+        vtu_media_hero_video: heroVideoData,
+        exportDate: new Date().toISOString()
+      };
+      const jsonStr = JSON.stringify(payload);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(jsonStr).then(() => {
+          showToast("All data copied to clipboard! Paste it into your Vercel admin.");
+        }).catch(() => {
+          fallbackCopyText(jsonStr);
+        });
+      } else {
+        fallbackCopyText(jsonStr);
+      }
+    }
+
+    function fallbackCopyText(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast("All data copied to clipboard! Paste it into your Vercel admin.");
+      } catch (e) {
+        prompt("Copy this sync data manually (Ctrl+C):", text);
+      }
+      document.body.removeChild(ta);
+    }
+
+    function pasteSyncData() {
+      const input = prompt("Paste your sync data JSON below (copied from local admin):");
+      if (!input || !input.trim()) return;
+      try {
+        const data = JSON.parse(input.trim());
+        let count = 0;
+        if (data.vtu_media_members) { localStorage.setItem('vtu_media_members', JSON.stringify(data.vtu_media_members)); count++; }
+        if (data.vtu_media_creators) { localStorage.setItem('vtu_media_creators', JSON.stringify(data.vtu_media_creators)); count++; }
+        if (data.vtu_media_gallery) { localStorage.setItem('vtu_media_gallery', JSON.stringify(data.vtu_media_gallery)); count++; }
+        if (data.vtu_media_productions) { localStorage.setItem('vtu_media_productions', JSON.stringify(data.vtu_media_productions)); count++; }
+        if (data.vtu_media_hero_video) { localStorage.setItem('vtu_media_hero_video', JSON.stringify(data.vtu_media_hero_video)); count++; }
+        if (count === 0) {
+          alert("No recognized CMS data found in the pasted JSON.");
+          return;
+        }
+        showToast("Synced " + count + " datasets successfully! Reloading...");
+        setTimeout(() => window.location.reload(), 1000);
+      } catch (err) {
+        alert("Invalid JSON data: " + err.message);
+      }
+    }
+
     function exportBackupJson() {
       const payload = {
         vtu_media_members: membersData,
+        vtu_media_creators: creatorsData,
         vtu_media_gallery: galleryData,
         vtu_media_productions: productionsData,
         vtu_media_hero_video: heroVideoData,
@@ -2157,6 +2239,7 @@
         try {
           const data = JSON.parse(evt.target.result);
           if (data.vtu_media_members) localStorage.setItem('vtu_media_members', JSON.stringify(data.vtu_media_members));
+          if (data.vtu_media_creators) localStorage.setItem('vtu_media_creators', JSON.stringify(data.vtu_media_creators));
           if (data.vtu_media_gallery) localStorage.setItem('vtu_media_gallery', JSON.stringify(data.vtu_media_gallery));
           if (data.vtu_media_productions) localStorage.setItem('vtu_media_productions', JSON.stringify(data.vtu_media_productions));
           if (data.vtu_media_hero_video) localStorage.setItem('vtu_media_hero_video', JSON.stringify(data.vtu_media_hero_video));
@@ -2172,6 +2255,7 @@
     function resetAllToDefault() {
       if (confirm("Reset ALL media, pictures, and team cards to original default content? This will clear local changes.")) {
         localStorage.removeItem('vtu_media_members');
+        localStorage.removeItem('vtu_media_creators');
         localStorage.removeItem('vtu_media_gallery');
         localStorage.removeItem('vtu_media_productions');
         localStorage.removeItem('vtu_media_hero_video');
