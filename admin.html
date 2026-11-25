@@ -582,6 +582,14 @@
               <option value="Social Media">Social Media</option>
             </select>
           </div>
+          <div>
+            <label class="block text-xs font-mono text-zinc-300 mb-1">TEAM SEGREGATION / TIER *</label>
+            <select id="memberCategory" class="w-full px-3.5 py-2 rounded-xl glass-input text-xs text-white focus:outline-none bg-[#120406]">
+              <option value="Members">👥 Members (General Crew)</option>
+              <option value="Core Team">⭐ Core Team (Leadership & Heads)</option>
+            </select>
+          </div>
+
 
           <div>
             <label class="block text-xs font-mono text-zinc-300 mb-1">HANDLE / USERNAME</label>
@@ -896,6 +904,7 @@
     const DEFAULT_MEMBERS = [
   {
     name: "Vikram",
+    category: "Core Team",
     role: "Club President & Lead Editor",
     dept: "Cinematography",
     handle: "@vikram.vtu",
@@ -907,6 +916,7 @@
   },
   {
     name: "Harshada",
+    category: "Core Team",
     role: "Club Vice President",
     dept: "Cinematography",
     handle: "@harshada.vtu",
@@ -918,6 +928,7 @@
   },
   {
     name: "Nihal",
+    category: "Core Team",
     role: "Lead Videographer & Senior Editor",
     dept: "Cinematography",
     handle: "@nihal.cine",
@@ -929,6 +940,7 @@
   },
   {
     name: "Adarsh",
+    category: "Core Team",
     role: "Head of PR & Graphic Design",
     dept: "Motion & VFX",
     handle: "@adarsh.creative",
@@ -940,6 +952,7 @@
   },
   {
     name: "Prajwal V Gowda",
+    category: "Core Team",
     role: "Web UI/UX Lead & Data Systems",
     dept: "Motion & VFX",
     handle: "@prajwal.dev",
@@ -951,6 +964,7 @@
   },
   {
     name: "Arun",
+    category: "Members",
     role: "Cinematographer & Data Systems",
     dept: "Cinematography",
     handle: "@arun.visuals",
@@ -962,6 +976,7 @@
   },
   {
     name: "Krutika",
+    category: "Members",
     role: "Cinematographer & Camera Operator",
     dept: "Cinematography",
     handle: "@krutika.frames",
@@ -973,6 +988,7 @@
   },
   {
     name: "Krupal",
+    category: "Members",
     role: "Senior Video Editor",
     dept: "Editing & Color",
     handle: "@krupal.edits",
@@ -984,6 +1000,7 @@
   },
   {
     name: "Om",
+    category: "Members",
     role: "Film Editor & Colorist",
     dept: "Editing & Color",
     handle: "@om.cuts",
@@ -995,6 +1012,7 @@
   },
   {
     name: "Araman",
+    category: "Core Team",
     role: "Social Media Lead",
     dept: "Editing & Color",
     handle: "@araman.social",
@@ -1006,6 +1024,7 @@
   },
   {
     name: "Srushti",
+    category: "Members",
     role: "Social Media Strategist",
     dept: "Editing & Color",
     handle: "@srushti.creates",
@@ -1017,6 +1036,7 @@
   },
   {
     name: "Keerti",
+    category: "Members",
     role: "Digital Outreach Specialist",
     dept: "Editing & Color",
     handle: "@keerti.media",
@@ -1028,6 +1048,7 @@
   },
   {
     name: "Apoorva",
+    category: "Members",
     role: "Social Media Content Specialist",
     dept: "Editing & Color",
     handle: "@apoorva.digital",
@@ -1039,6 +1060,7 @@
   },
   {
     name: "Nagaraj",
+    category: "Members",
     role: "Graphic Designer",
     dept: "Graphic Design",
     handle: "@nagaraj.design",
@@ -1050,6 +1072,7 @@
   },
   {
     name: "Agam",
+    category: "Core Team",
     role: "Treasurer & Production Logistics",
     dept: "Live & Audio",
     handle: "@agam.production",
@@ -1208,6 +1231,44 @@
     let heroVideoData = {};
 
     let currentTab = 'team';
+    const CORE_KEYWORDS = ['president', 'vice president', 'head of pr', 'web ui/ux lead', 'lead videographer', 'treasurer', 'social media lead'];
+    const CORE_NAMES = ['vikram', 'harshada', 'nihal', 'adarsh', 'prajwal v gowda', 'agam', 'araman'];
+
+    function getMemberCategory(m) {
+      if (!m) return 'Members';
+      if (m.category === 'Core Team' || m.category === 'Members') return m.category;
+      const nameLower = (m.name || '').toLowerCase().trim();
+      const roleLower = (m.role || '').toLowerCase();
+      const isCore = CORE_NAMES.includes(nameLower) || CORE_KEYWORDS.some(kw => roleLower.includes(kw));
+      return isCore ? 'Core Team' : 'Members';
+    }
+    window.getMemberCategory = getMemberCategory;
+
+    function healMembersList(list) {
+      if (!Array.isArray(list) || list.length === 0) return list;
+      const currentMembersCount = list.filter(m => m.category === 'Members').length;
+      if (currentMembersCount === 0 && list.length > 2) {
+        list.forEach(m => {
+          const nameLower = (m.name || '').toLowerCase().trim();
+          const roleLower = (m.role || '').toLowerCase();
+          const isCore = CORE_NAMES.includes(nameLower) || CORE_KEYWORDS.some(kw => roleLower.includes(kw));
+          m.category = isCore ? 'Core Team' : 'Members';
+        });
+        safeSetItem('vtu_media_members', list);
+      } else {
+        list.forEach(m => {
+          if (m.category !== 'Core Team' && m.category !== 'Members') {
+            const nameLower = (m.name || '').toLowerCase().trim();
+            const roleLower = (m.role || '').toLowerCase();
+            const isCore = CORE_NAMES.includes(nameLower) || CORE_KEYWORDS.some(kw => roleLower.includes(kw));
+            m.category = isCore ? 'Core Team' : 'Members';
+          }
+        });
+      }
+      return list;
+    }
+    window.healMembersList = healMembersList;
+    let currentCategoryFilter = 'All';
     let currentDeptFilter = 'All';
     let currentGalleryCategory = 'All';
 
@@ -1256,6 +1317,7 @@
       try {
         const m = localStorage.getItem('vtu_media_members');
         membersData = m ? JSON.parse(m) : [...DEFAULT_MEMBERS];
+      membersData = healMembersList(membersData);
       try {
         const cr = localStorage.getItem('vtu_media_creators');
         creatorsData = cr ? JSON.parse(cr) : [...DEFAULT_CREATORS];
@@ -1324,10 +1386,16 @@
       const act = document.getElementById('tabActionContainer');
       if (tab === 'team') {
         act.innerHTML = `
-          <button onclick="openMemberModal(null)" class="px-4 py-2.5 rounded-xl bg-[#B21F29] hover:bg-[#930510] text-white text-xs font-semibold transition-all flex items-center gap-1.5 shadow-lg shadow-[#B21F29]/30 cursor-pointer">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
-            <span>Add Team Member</span>
-          </button>
+          <div class="flex items-center gap-2">
+            <button onclick="openMemberModal(null, 'Members')" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-all flex items-center gap-1.5 shadow-md cursor-pointer">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+              <span>+ Add Member</span>
+            </button>
+            <button onclick="openMemberModal(null, 'Core Team')" class="px-3.5 py-2 rounded-xl bg-[#B21F29] hover:bg-[#930510] text-white text-xs font-semibold transition-all flex items-center gap-1.5 shadow-lg shadow-[#B21F29]/30 cursor-pointer">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+              <span>+ Add Core Team</span>
+            </button>
+          </div>
         `;
       } else if (tab === 'gallery') {
         act.innerHTML = `
@@ -1345,22 +1413,36 @@
     // TAB 1: TEAM & STORYTELLERS
     // =======================================================================
     function renderDeptFilterButtons() {
-      const depts = ['All', 'Cinematography', 'Photography', 'Editing & Color', 'Graphic Design', 'Motion & VFX', 'Live & Audio', 'Social Media'];
       const c = document.getElementById('deptFilterButtons');
-      c.innerHTML = depts.map(d => `
-        <button onclick="setDeptFilter('${d}')" class="px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
-          currentDeptFilter === d
-            ? 'bg-[#B21F29] text-white shadow-lg shadow-[#B21F29]/30'
-            : 'bg-white/[0.04] text-zinc-400 hover:text-white border border-white/10'
-        }">${d}</button>
+      if (!c) return;
+      const coreCount = membersData.filter(m => getMemberCategory(m) === 'Core Team').length;
+      const membersCount = membersData.filter(m => getMemberCategory(m) === 'Members').length;
+      const totalCount = membersData.length;
+
+      const filters = [
+        { id: 'All', label: 'All Creators', count: totalCount },
+        { id: 'Core Team', label: '⭐ Core Team', count: coreCount },
+        { id: 'Members', label: '👥 Members', count: membersCount }
+      ];
+
+      c.innerHTML = filters.map(f => `
+        <button onclick="setCategoryFilter('${f.id}')" class="px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all ${
+          currentCategoryFilter === f.id
+            ? 'bg-[#B21F29] text-white shadow-lg shadow-[#B21F29]/40 border border-[#B21F29]'
+            : 'bg-white/[0.04] text-zinc-400 hover:text-white border border-white/10 hover:bg-white/[0.08]'
+        }">
+          <span>${f.label}</span>
+          <span class="ml-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono ${currentCategoryFilter === f.id ? 'bg-black/35 text-white' : 'bg-white/10 text-zinc-300'}">${f.count}</span>
+        </button>
       `).join('');
     }
 
-    function setDeptFilter(dept) {
-      currentDeptFilter = dept;
+    function setCategoryFilter(cat) {
+      currentCategoryFilter = cat;
       renderDeptFilterButtons();
       renderTeamCards();
     }
+    window.setCategoryFilter = setCategoryFilter;
 
     let memberQuery = '';
     function handleMemberSearch(q) {
@@ -1370,50 +1452,111 @@
 
     
     let currentTeamSubView = 'roster';
+
     function setTeamSubView(view) {
       currentTeamSubView = view;
       const btnRoster = document.getElementById('subViewBtn-roster');
       const btnFeat = document.getElementById('subViewBtn-featured');
       const deptFilter = document.getElementById('deptFilterContainer');
+      const act = document.getElementById('tabActionContainer');
+
       if (view === 'roster') {
         btnRoster.className = "px-4 py-2 rounded-xl text-xs font-semibold bg-[#B21F29] text-white transition-all shadow-md";
         btnFeat.className = "px-4 py-2 rounded-xl text-xs font-semibold text-zinc-300 hover:text-white transition-all";
         if (deptFilter) deptFilter.classList.remove('hidden');
+        if (act) {
+          act.innerHTML = `
+            <div class="flex items-center gap-2">
+              <button onclick="openMemberModal(null, 'Members')" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-all flex items-center gap-1.5 shadow-md cursor-pointer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+                <span>+ Add Member</span>
+              </button>
+              <button onclick="openMemberModal(null, 'Core Team')" class="px-3.5 py-2 rounded-xl bg-[#B21F29] hover:bg-[#930510] text-white text-xs font-semibold transition-all flex items-center gap-1.5 shadow-lg shadow-[#B21F29]/30 cursor-pointer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+                <span>+ Add Core Team</span>
+              </button>
+            </div>
+          `;
+        }
         renderTeamCards();
       } else {
         btnRoster.className = "px-4 py-2 rounded-xl text-xs font-semibold text-zinc-300 hover:text-white transition-all";
         btnFeat.className = "px-4 py-2 rounded-xl text-xs font-semibold bg-[#B21F29] text-white transition-all shadow-md";
         if (deptFilter) deptFilter.classList.add('hidden');
+        if (act) {
+          act.innerHTML = `
+            <button onclick="openCreatorModal(null)" class="px-4 py-2.5 rounded-xl bg-[#B21F29] hover:bg-[#930510] text-white text-xs font-semibold transition-all flex items-center gap-1.5 shadow-lg shadow-[#B21F29]/30 cursor-pointer">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+              <span>+ Add Storyteller to Carousel</span>
+            </button>
+          `;
+        }
         renderFeaturedCreatorsCards();
       }
     }
 
     function renderFeaturedCreatorsCards() {
       const grid = document.getElementById('teamCardsGrid');
-      grid.innerHTML = creatorsData.map((c, idx) => `
-        <div class="glass-card rounded-2xl overflow-hidden p-5 flex flex-col justify-between group border border-white/10 hover:border-[#B21F29]/50 transition-all">
+      
+      const bannerHtml = `
+        <div class="col-span-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl glass-panel border border-amber-500/20 bg-amber-500/[0.04] mb-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                <span>⭐ Top Featured Storytellers</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono text-xs">${creatorsData.length} in Carousel</span>
+              </h4>
+            </div>
+            <p class="text-xs text-zinc-400 mt-1">These creators are showcased in the high-profile animated carousel at the top of the Team section.</p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <button onclick="openCreatorModal(null)" class="px-4 py-2 rounded-xl bg-[#B21F29] hover:bg-[#930510] text-white text-xs font-semibold transition-all flex items-center gap-1.5 shadow-md shadow-[#B21F29]/25">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+              <span>Add New Storyteller</span>
+            </button>
+          </div>
+        </div>
+      `;
+
+      if (creatorsData.length === 0) {
+        grid.innerHTML = bannerHtml + `
+          <div class="col-span-full py-16 text-center text-zinc-400 font-mono text-xs glass-card rounded-2xl p-8 border border-white/10">
+            <p class="text-base text-zinc-300 font-sans font-semibold mb-2">No storytellers currently in the top carousel</p>
+            <p class="text-zinc-500 mb-4">Click "Add New Storyteller" above or switch to the Full Team Roster and click "⭐ Add to Carousel" on any member card.</p>
+            <button onclick="openCreatorModal(null)" class="px-5 py-2 rounded-xl bg-[#B21F29] text-white text-xs font-semibold">
+              + Add First Storyteller
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = bannerHtml + creatorsData.map((c, idx) => `
+        <div class="glass-card rounded-2xl overflow-hidden p-5 flex flex-col justify-between group border border-white/10 hover:border-amber-500/50 transition-all">
           <div class="space-y-4">
             <div class="flex items-center gap-3.5">
               <div class="relative w-14 h-14 rounded-xl overflow-hidden border border-white/20 bg-black shrink-0">
-                <img src="${c.avatar}" alt="${c.name}" class="w-full h-full object-cover" />
+                <img src="${c.avatar}" alt="${c.name}" onerror="this.src='https://placehold.co/400x400/120406/ffffff?text=${encodeURIComponent(c.name)}'" class="w-full h-full object-cover" />
               </div>
               <div class="overflow-hidden">
                 <h4 class="text-sm font-bold text-white truncate">${c.name}</h4>
                 <p class="text-xs text-[#fda4af] font-mono truncate mt-0.5">${c.role}</p>
-                <span class="inline-block px-2 py-0.5 rounded-md bg-amber-500/15 text-[10px] font-mono text-amber-300 mt-1">⭐ Top Carousel</span>
+                <span class="inline-block px-2 py-0.5 rounded-md bg-amber-500/20 text-[10px] font-mono text-amber-300 mt-1">⭐ Top Carousel Slot #${idx + 1}</span>
               </div>
             </div>
-            <p class="text-xs text-zinc-300 leading-relaxed">${c.bio}</p>
+            <p class="text-xs text-zinc-300 leading-relaxed line-clamp-3">${c.bio || 'Directs university landmark visual media.'}</p>
             <div class="text-[11px] font-mono text-zinc-400 border-t border-white/[0.06] pt-2">
-              <span>Handle: ${c.handle}</span>
+              <span>Handle: ${c.handle || '@' + c.name.toLowerCase().replace(/\s+/g, '')}</span>
             </div>
           </div>
-          <div class="flex items-center justify-between pt-4 mt-4 border-t border-white/[0.08]">
+          <div class="flex items-center justify-between pt-4 mt-4 border-t border-white/[0.08] gap-2">
             <button onclick="openCreatorModal(${idx})" class="px-3.5 py-1.5 rounded-lg bg-white/[0.06] hover:bg-white/[0.14] text-xs font-semibold text-zinc-200 hover:text-white transition-all flex items-center gap-1">
-              <span>Edit Storyteller</span>
+              <svg class="w-3.5 h-3.5 text-zinc-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+              <span>Edit</span>
             </button>
-            <button onclick="deleteCreator(${idx})" class="px-2.5 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-semibold transition-all">
-              Delete
+            <button onclick="deleteCreator(${idx})" class="px-3 py-1.5 rounded-lg bg-red-500/15 hover:bg-red-500/30 text-red-400 hover:text-red-300 text-xs font-semibold transition-all flex items-center gap-1">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+              <span>Remove</span>
             </button>
           </div>
         </div>
@@ -1421,9 +1564,9 @@
     }
 
     function openCreatorModal(idx) {
-      openMemberModal(null); // opens modal
+      openMemberModal(null);
       const title = document.getElementById('memberModalTitle');
-      title.textContent = idx !== null ? "Edit Top Storyteller" : "Add Top Storyteller";
+      title.textContent = idx !== null ? `⭐ Edit Storyteller: ${creatorsData[idx].name}` : "⭐ Add Storyteller to Top Carousel";
       if (idx !== null) {
         const c = creatorsData[idx];
         document.getElementById('memberName').value = c.name || '';
@@ -1432,7 +1575,6 @@
         document.getElementById('memberBio').value = c.bio || '';
         document.getElementById('memberPhotoUrl').value = c.avatar || '';
         document.getElementById('memberPhotoPreview').src = c.avatar || '';
-        // Special flag:
         document.getElementById('memberEditIndex').value = 'creator_' + idx;
       } else {
         document.getElementById('memberEditIndex').value = 'creator_new';
@@ -1440,19 +1582,82 @@
     }
 
     function deleteCreator(idx) {
-      if (confirm(`Remove "${creatorsData[idx].name}" from top storytellers carousel?`)) {
+      const c = creatorsData[idx];
+      if (!c) return;
+      if (confirm(`Remove "${c.name}" from the Featured Storytellers Top Carousel?\n\n(This person will remain in your full team roster if listed there).`)) {
         creatorsData.splice(idx, 1);
         safeSetItem('vtu_media_creators', creatorsData);
-        showToast("Removed from top carousel!");
+        showToast(`Removed "${c.name}" from top carousel!`);
         renderFeaturedCreatorsCards();
       }
     }
 
+    function isMemberInCarousel(name) {
+      if (!name) return false;
+      const lower = name.trim().toLowerCase();
+      return creatorsData.some(c => (c.name || '').trim().toLowerCase() === lower);
+    }
+
+    function addMemberToCarousel(memberIndex) {
+      const m = membersData[memberIndex];
+      if (!m) return;
+      if (isMemberInCarousel(m.name)) {
+        showToast(`"${m.name}" is already in the top carousel!`);
+        return;
+      }
+      const newCreator = {
+        name: m.name,
+        role: m.role,
+        handle: m.handle || `@${m.name.toLowerCase().replace(/\s+/g, '')}`,
+        bio: m.bio || `Creative specialist in ${m.dept} producing landmark media for VTU.`,
+        avatar: m.img,
+        stats: [m.role, m.dept, m.gear || "Cinema Rig"]
+      };
+      creatorsData.push(newCreator);
+      safeSetItem('vtu_media_creators', creatorsData);
+      showToast(`⭐ Added "${m.name}" to Featured Storytellers Top Carousel!`);
+      renderTeamCards();
+    }
+
+    function removeMemberFromCarousel(memberIndex) {
+      const m = membersData[memberIndex];
+      if (!m) return;
+      removeMemberFromCarouselByName(m.name);
+    }
+
+    function removeMemberFromCarouselByName(name) {
+      if (!name) return;
+      const lower = name.trim().toLowerCase();
+      const idx = creatorsData.findIndex(c => (c.name || '').trim().toLowerCase() === lower);
+      if (idx !== -1) {
+        if (confirm(`Remove "${name}" from Featured Storytellers (Top Carousel)?`)) {
+          creatorsData.splice(idx, 1);
+          safeSetItem('vtu_media_creators', creatorsData);
+          showToast(`Removed "${name}" from top carousel!`);
+          renderTeamCards();
+        }
+      }
+    }
+
+        function toggleMemberTier(idx) {
+      const m = membersData[idx];
+      if (!m) return;
+      const current = getMemberCategory(m);
+      const newCat = current === 'Core Team' ? 'Members' : 'Core Team';
+      m.category = newCat;
+      safeSetItem('vtu_media_members', membersData);
+      showToast(`Moved "${m.name}" to ${newCat}!`);
+      updateCounts();
+      renderDeptFilterButtons();
+      renderTeamCards();
+    }
+    window.toggleMemberTier = toggleMemberTier;
+
     function renderTeamCards() {
       const grid = document.getElementById('teamCardsGrid');
       let filtered = membersData;
-      if (currentDeptFilter !== 'All') {
-        filtered = filtered.filter(m => m.dept === currentDeptFilter);
+      if (currentCategoryFilter !== 'All') {
+        filtered = filtered.filter(m => getMemberCategory(m) === currentCategoryFilter);
       }
       if (memberQuery) {
         filtered = filtered.filter(m =>
@@ -1469,6 +1674,7 @@
 
       grid.innerHTML = filtered.map((m) => {
         const originalIndex = membersData.indexOf(m);
+        const inCarousel = isMemberInCarousel(m.name);
         return `
           <div class="glass-card rounded-2xl overflow-hidden p-5 flex flex-col justify-between group border border-white/10 hover:border-[#B21F29]/50 transition-all">
             <div class="space-y-4">
@@ -1477,10 +1683,13 @@
                 <div class="relative w-14 h-14 rounded-xl overflow-hidden border border-white/20 bg-black shrink-0">
                   <img src="${m.img}" alt="${m.name}" onerror="this.src='https://placehold.co/400x400/120406/ffffff?text=${encodeURIComponent(m.name)}'" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300" />
                 </div>
-                <div class="overflow-hidden">
-                  <h4 class="text-sm font-bold text-white truncate">${m.name}</h4>
+                <div class="overflow-hidden flex-1">
+                  <div class="flex items-center justify-between gap-1">
+                    <h4 class="text-sm font-bold text-white truncate">${m.name}</h4>
+                    ${inCarousel ? '<span class="text-[10px] font-mono text-amber-300 bg-amber-500/20 px-1.5 py-0.5 rounded shrink-0">⭐ Featured</span>' : ''}
+                  </div>
                   <p class="text-xs text-[#fda4af] font-mono truncate mt-0.5">${m.role}</p>
-                  <span class="inline-block px-2 py-0.5 rounded-md bg-white/[0.06] text-[10px] font-mono text-zinc-400 mt-1">${m.dept}</span>
+                  <span class="inline-block px-2 py-0.5 rounded-md ${getMemberCategory(m) === 'Core Team' ? 'bg-[#B21F29]/30 text-[#fda4af] border border-[#B21F29]/50' : 'bg-blue-500/20 text-blue-300 border border-blue-500/40'} text-[10px] font-mono mt-1 font-semibold">${getMemberCategory(m) === 'Core Team' ? '⭐ Core Team' : '👥 Member'}</span>
                 </div>
               </div>
 
@@ -1492,29 +1701,58 @@
             </div>
 
             <!-- Action Buttons -->
-            <div class="flex items-center justify-between pt-4 mt-4 border-t border-white/[0.08]">
+            <div class="space-y-2 pt-4 mt-4 border-t border-white/[0.08]">
+              <!-- 1-Click Tier Switcher -->
               <button
-                onclick="openMemberModal(${originalIndex})"
-                class="px-3.5 py-1.5 rounded-lg bg-white/[0.06] hover:bg-white/[0.14] text-xs font-semibold text-zinc-200 hover:text-white transition-all flex items-center gap-1"
+                type="button"
+                onclick="toggleMemberTier(${originalIndex})"
+                class="w-full py-1 px-2.5 rounded-lg bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 text-zinc-300 hover:text-white text-[11px] font-medium transition-all flex items-center justify-center gap-1.5"
               >
-                <svg class="w-3.5 h-3.5 text-zinc-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                <span>Edit</span>
+                <span>${getMemberCategory(m) === 'Core Team' ? '🔄 Switch to Members' : '⭐ Promote to Core Team'}</span>
               </button>
 
-              <button
-                onclick="deleteMember(${originalIndex})"
-                class="px-2.5 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-semibold transition-all flex items-center gap-1"
-              >
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                <span>Delete</span>
-              </button>
+              <!-- Carousel Toggle Button -->
+              ${inCarousel ? `
+                <button
+                  type="button"
+                  onclick="removeMemberFromCarousel(${originalIndex})"
+                  class="w-full py-1.5 px-2.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-[11px] font-medium transition-all flex items-center justify-center gap-1.5"
+                >
+                  <span>⭐ In Top Carousel (Click to Remove)</span>
+                </button>
+              ` : `
+                <button
+                  type="button"
+                  onclick="addMemberToCarousel(${originalIndex})"
+                  class="w-full py-1.5 px-2.5 rounded-lg bg-white/[0.04] hover:bg-amber-500/15 border border-white/10 hover:border-amber-500/40 text-zinc-300 hover:text-amber-200 text-[11px] font-medium transition-all flex items-center justify-center gap-1.5"
+                >
+                  <span>⭐ Add to Top Carousel</span>
+                </button>
+              `}
+
+              <div class="flex items-center justify-between gap-2">
+                <button
+                  onclick="openMemberModal(${originalIndex})"
+                  class="px-3 py-1.5 rounded-lg bg-white/[0.06] hover:bg-white/[0.14] text-xs font-semibold text-zinc-200 hover:text-white transition-all flex items-center gap-1"
+                >
+                  <svg class="w-3.5 h-3.5 text-zinc-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                  <span>Edit</span>
+                </button>
+                <button
+                  onclick="deleteMember(${originalIndex})"
+                  class="px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-semibold transition-all flex items-center gap-1"
+                >
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                  <span>Delete</span>
+                </button>
+              </div>
             </div>
           </div>
         `;
       }).join('');
     }
 
-    function openMemberModal(index) {
+    function openMemberModal(index, defaultCategory) {
       const modal = document.getElementById('memberEditModal');
       const title = document.getElementById('memberModalTitle');
       const idxInput = document.getElementById('memberEditIndex');
@@ -1526,6 +1764,7 @@
         document.getElementById('memberName').value = m.name || '';
         document.getElementById('memberRole').value = m.role || '';
         document.getElementById('memberDept').value = m.dept || 'Cinematography';
+        document.getElementById('memberCategory').value = getMemberCategory(m);
         document.getElementById('memberHandle').value = m.handle || '';
         document.getElementById('memberGear').value = m.gear || '';
         document.getElementById('memberCredits').value = m.credits || '';
@@ -1533,11 +1772,13 @@
         document.getElementById('memberPhotoUrl').value = m.img || '';
         document.getElementById('memberPhotoPreview').src = m.img || '';
       } else {
-        title.textContent = "Add New Team Member";
+        const cat = defaultCategory || 'Members';
+        title.textContent = cat === 'Core Team' ? "Add New Core Team Member" : "Add New Crew Member";
         idxInput.value = "-1";
         document.getElementById('memberName').value = '';
         document.getElementById('memberRole').value = '';
         document.getElementById('memberDept').value = 'Cinematography';
+        document.getElementById('memberCategory').value = cat;
         document.getElementById('memberHandle').value = '';
         document.getElementById('memberGear').value = '';
         document.getElementById('memberCredits').value = '';
@@ -1601,7 +1842,8 @@
         return;
       }
 
-      const newMember = { name, role, dept, handle, gear, credits, bio, img, exif };
+      const category = document.getElementById('memberCategory') ? document.getElementById('memberCategory').value : 'Members';
+      const newMember = { name, role, dept, category, handle, gear, credits, bio, img, exif };
 
       if (idx >= 0 && idx < membersData.length) {
         membersData[idx] = newMember;

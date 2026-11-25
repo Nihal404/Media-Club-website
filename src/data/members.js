@@ -39,6 +39,7 @@ export const featuredCreators = [
 export const allMembers = [
   {
     name: "Vikram",
+    category: "Core Team",
     role: "Club President & Lead Editor",
     dept: "Cinematography",
     handle: "@vikram.vtu",
@@ -50,6 +51,7 @@ export const allMembers = [
   },
   {
     name: "Harshada",
+    category: "Core Team",
     role: "Club Vice President",
     dept: "Cinematography",
     handle: "@harshada.vtu",
@@ -61,6 +63,7 @@ export const allMembers = [
   },
   {
     name: "Nihal",
+    category: "Core Team",
     role: "Lead Videographer & Senior Editor",
     dept: "Cinematography",
     handle: "@nihal.cine",
@@ -72,6 +75,7 @@ export const allMembers = [
   },
   {
     name: "Adarsh",
+    category: "Core Team",
     role: "Head of PR & Graphic Design",
     dept: "Motion & VFX",
     handle: "@adarsh.creative",
@@ -83,6 +87,7 @@ export const allMembers = [
   },
   {
     name: "Prajwal V Gowda",
+    category: "Core Team",
     role: "Web UI/UX Lead & Data Systems",
     dept: "Motion & VFX",
     handle: "@prajwal.dev",
@@ -94,6 +99,7 @@ export const allMembers = [
   },
   {
     name: "Arun",
+    category: "Members",
     role: "Cinematographer & Data Systems",
     dept: "Cinematography",
     handle: "@arun.visuals",
@@ -105,6 +111,7 @@ export const allMembers = [
   },
   {
     name: "Krutika",
+    category: "Members",
     role: "Cinematographer & Camera Operator",
     dept: "Cinematography",
     handle: "@krutika.frames",
@@ -116,6 +123,7 @@ export const allMembers = [
   },
   {
     name: "Krupal",
+    category: "Members",
     role: "Senior Video Editor",
     dept: "Editing & Color",
     handle: "@krupal.edits",
@@ -127,6 +135,7 @@ export const allMembers = [
   },
   {
     name: "Om",
+    category: "Members",
     role: "Film Editor & Colorist",
     dept: "Editing & Color",
     handle: "@om.cuts",
@@ -138,6 +147,7 @@ export const allMembers = [
   },
   {
     name: "Araman",
+    category: "Core Team",
     role: "Social Media Lead",
     dept: "Editing & Color",
     handle: "@araman.social",
@@ -149,6 +159,7 @@ export const allMembers = [
   },
   {
     name: "Srushti",
+    category: "Members",
     role: "Social Media Strategist",
     dept: "Editing & Color",
     handle: "@srushti.creates",
@@ -160,6 +171,7 @@ export const allMembers = [
   },
   {
     name: "Keerti",
+    category: "Members",
     role: "Digital Outreach Specialist",
     dept: "Editing & Color",
     handle: "@keerti.media",
@@ -171,6 +183,7 @@ export const allMembers = [
   },
   {
     name: "Apoorva",
+    category: "Members",
     role: "Social Media Content Specialist",
     dept: "Editing & Color",
     handle: "@apoorva.digital",
@@ -182,6 +195,7 @@ export const allMembers = [
   },
   {
     name: "Nagaraj",
+    category: "Members",
     role: "Graphic Designer",
     dept: "Graphic Design",
     handle: "@nagaraj.design",
@@ -193,6 +207,7 @@ export const allMembers = [
   },
   {
     name: "Agam",
+    category: "Core Team",
     role: "Treasurer & Production Logistics",
     dept: "Live & Audio",
     handle: "@agam.production",
