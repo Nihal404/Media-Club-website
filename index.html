@@ -118,7 +118,7 @@
           window._preloaderCallback = null;
           cb();
         }
-      }, 900);
+      }, 500);
     };
 
     window.showPreloader = function (duration, onComplete) {
@@ -146,6 +146,7 @@
       if (video) {
         try {
           video.currentTime = 0;
+          video.playbackRate = 1.3;
           var p = video.play();
           if (p && typeof p.catch === 'function') {
             p.catch(function () { });
@@ -153,7 +154,7 @@
         } catch (e) { }
       }
 
-      var dur = typeof duration === 'number' ? duration : 2800;
+      var dur = typeof duration === 'number' ? duration : 1200;
       window._preloaderTimer = setTimeout(function () {
         window.dismissPreloader();
       }, dur);
@@ -206,7 +207,7 @@
 
   <!-- Cinema 4-Second Studio Intro Video (Pure Seamless Unboxed Experience) -->
   <div id="cinemaPreloader"
-    class="fixed inset-0 z-[100] flex items-center justify-center bg-black overflow-hidden select-none transition-opacity duration-1000 ease-out"
+    class="fixed inset-0 z-[100] flex items-center justify-center bg-black overflow-hidden select-none transition-opacity duration-500 ease-out"
     style="background-color: #000000 !important; background: #000000 !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important;">
     <!-- Centered Studio Video: Seamless, unboxed, authentic cinema studio intro -->
     <div class="relative w-full max-w-3xl sm:max-w-4xl max-h-[85vh] flex items-center justify-center p-4">

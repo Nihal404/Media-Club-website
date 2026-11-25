@@ -1069,7 +1069,7 @@ const GlowCursor = ({
       if (pageId === 'about') {
         // Trigger cinema loading animation for About!
         if (typeof window.showPreloader === 'function') {
-          window.showPreloader(2800);
+          window.showPreloader(1200);
         }
 
         if (homeSections) homeSections.style.display = 'none';
