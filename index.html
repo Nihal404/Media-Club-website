@@ -90,19 +90,70 @@
       img.src = 'https://placehold.co/800x600/0f1220/a5b4fc?text=' + label;
     };
 
+    window._preloaderTimer = null;
+    window._preloaderCallback = null;
+
     window.dismissPreloader = function () {
       var preloader = document.getElementById('cinemaPreloader');
       if (!preloader || preloader.dataset.dismissed === 'true') return;
       preloader.dataset.dismissed = 'true';
 
+      if (window._preloaderTimer) {
+        clearTimeout(window._preloaderTimer);
+        window._preloaderTimer = null;
+      }
+
       preloader.style.opacity = '0';
       preloader.style.pointerEvents = 'none';
 
       setTimeout(function () {
-        if (preloader && preloader.parentNode) {
+        if (preloader) {
           preloader.style.display = 'none';
         }
+        if (typeof window._preloaderCallback === 'function') {
+          var cb = window._preloaderCallback;
+          window._preloaderCallback = null;
+          cb();
+        }
       }, 900);
+    };
+
+    window.showPreloader = function (duration, onComplete) {
+      var preloader = document.getElementById('cinemaPreloader');
+      var video = document.getElementById('preloaderVideo');
+      if (!preloader) {
+        if (typeof onComplete === 'function') onComplete();
+        return;
+      }
+
+      if (window._preloaderTimer) {
+        clearTimeout(window._preloaderTimer);
+        window._preloaderTimer = null;
+      }
+
+      window._preloaderCallback = onComplete;
+      preloader.dataset.dismissed = 'false';
+      preloader.style.display = 'flex';
+      preloader.style.pointerEvents = 'auto';
+
+      // Trigger reflow to restart transition smoothly
+      void preloader.offsetWidth;
+      preloader.style.opacity = '1';
+
+      if (video) {
+        try {
+          video.currentTime = 0;
+          var p = video.play();
+          if (p && typeof p.catch === 'function') {
+            p.catch(function () {});
+          }
+        } catch (e) {}
+      }
+
+      var dur = typeof duration === 'number' ? duration : 2800;
+      window._preloaderTimer = setTimeout(function () {
+        window.dismissPreloader();
+      }, dur);
     };
 
     // 4-Second Seamless Cinema Intro Video Timer

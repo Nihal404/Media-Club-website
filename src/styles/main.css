@@ -306,3 +306,18 @@ body {
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
 }
+
+/* =====================================================================
+ * PAGE TRANSITION ANIMATION
+ * Used when switching to About / Team Profile pages
+ * ===================================================================== */
+@keyframes pageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -24,6 +24,11 @@ export default function App() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [toasts, setToasts] = useState([]);
 
+  // ── Page routing state: 'home' | 'gallery' | 'about' | 'team'
+  // 'home' and 'gallery' are part of the single scrollable page.
+  // 'about' and 'team' replace the main content area entirely.
+  const [activePage, setActivePage] = useState('home');
+
   // Toast dispatch
   const showToast = (message) => {
     const id = Date.now();
@@ -116,6 +121,13 @@ export default function App() {
     };
   }, [lightboxIdx]);
 
+  // Scroll to top whenever switching to about/team page
+  useEffect(() => {
+    if (activePage === 'about' || activePage === 'team') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [activePage]);
+
   const handleToggleHud = () => {
     setHudActive((prev) => {
       const next = !prev;
@@ -133,12 +145,15 @@ export default function App() {
     setSoundActive(newState);
   };
 
+  // Which sections belong to the "single scrollable home page"
+  const isHomePage = activePage === 'home' || activePage === 'gallery';
+
   return (
     <div className="min-h-screen bg-transparent text-zinc-100 antialiased selection:bg-[#930510]/40 selection:text-white">
       {/* Scroll Progress Bar */}
       <div id="scrollProgress" aria-hidden="true"></div>
 
-      {/* Fluid Cinema WebGL2 Glow Cursor from React Bits */}
+      {/* Fluid Cinema WebGL2 Glow Cursor */}
       <GlowCursor
         className="pointer-events-none fixed inset-0 z-40 w-full h-full"
         color="#B21F29"
@@ -171,7 +186,7 @@ export default function App() {
       {/* Fullscreen Viewfinder HUD Mode */}
       <ViewfinderHUD active={hudActive} />
 
-      {/* Header Navigation */}
+      {/* Header Navigation — receives activePage and setter */}
       <Navbar
         hudActive={hudActive}
         onToggleHud={handleToggleHud}
@@ -179,98 +194,126 @@ export default function App() {
         onToggleSound={handleToggleSound}
         onOpenBooking={() => setBookingOpen(true)}
         onOpenJoin={() => setJoinOpen(true)}
+        activePage={activePage}
+        onPageChange={setActivePage}
       />
 
-      {/* 4 Core Pages Container */}
+      {/* ── MAIN CONTENT ── */}
       <main className="relative z-10">
-        {/* PAGE 1: HOME PAGE */}
-        <div id="page-home">
-          <Hero
-            onOpenBooking={() => setBookingOpen(true)}
-            onOpenShowreel={(idx) => setShowreelIdx(idx)}
-          />
-          <GearStrip />
-        </div>
 
-        {/* PAGE 2: GALLERY */}
-        <div id="page-gallery">
-          <PhotoGallery
-            onOpenLightbox={(idx) => setLightboxIdx(idx)}
-            onOpenCategory={(idx) => setCategoryIdx(idx)}
-          />
-        </div>
+        {/* ══════════════════════════════════════════
+            SINGLE SCROLLABLE PAGE: Home + Gallery
+            Visible when activePage is 'home' or 'gallery'
+            ══════════════════════════════════════════ */}
+        {isHomePage && (
+          <>
+            {/* Hero Section */}
+            <div id="home">
+              <Hero
+                onOpenBooking={() => setBookingOpen(true)}
+                onOpenShowreel={(idx) => setShowreelIdx(idx)}
+              />
+              <GearStrip />
+            </div>
 
-        {/* 3. SOCIAL MEDIA INFOGRAPHICS */}
-        <SocialInfographics />
+            {/* Gallery Section — still on the same scrollable page */}
+            <div id="gallery">
+              <PhotoGallery
+                onOpenLightbox={(idx) => setLightboxIdx(idx)}
+                onOpenCategory={(idx) => setCategoryIdx(idx)}
+              />
+            </div>
 
-        {/* PAGE 4: ABOUT */}
-        <div id="page-about">
-          <CampusImpact onOpenBooking={() => setBookingOpen(true)} />
-        </div>
+            {/* Social Infographics — below gallery, still home page */}
+            <SocialInfographics />
+          </>
+        )}
 
-        {/* PAGE 4: TEAM PROFILE (STORYTELLERS & ALL MEMBERS) */}
-        <div id="page-team">
-          <MembersWall onOpenMemberModal={(idx) => setMemberIdx(idx)} />
-        </div>
+        {/* ══════════════════════════════════════════
+            ABOUT PAGE — replaces main content when
+            user clicks "About" in the navbar
+            ══════════════════════════════════════════ */}
+        {activePage === 'about' && (
+          <div
+            id="page-about"
+            className="page-enter"
+            style={{ animation: 'pageSlideIn 0.45s cubic-bezier(0.22,1,0.36,1) both' }}
+          >
+            <CampusImpact onOpenBooking={() => setBookingOpen(true)} />
 
-          {/* Join CTA Section as part of About */}
-          <section id="join" className="relative py-20 sm:py-28 border-t border-white/[0.06]">
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center reveal-up is-visible">
-                <div className="md:col-span-5 flex flex-col items-center md:items-start space-y-6">
-                  <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-full bg-white/[0.04] border border-[#B21F29]/30 text-xs font-medium text-zinc-300 shadow-sm backdrop-blur-md">
-                    <img src="assets/logo.png" alt="" className="h-4 w-auto object-contain" />
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#B21F29] rec-dot"></span>
-                    <span>Recruitment Open — 2026 Batch</span>
-                  </div>
-                  <div className="relative w-44 h-44 sm:w-52 sm:h-52 flex items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] shadow-glow-terracotta/25 group">
-                    <svg viewBox="0 0 200 200" className="w-full h-full animate-spin-slow p-2">
-                      <defs>
-                        <path id="circleTextPath" d="M 100, 100 m -74, 0 a 74,74 0 1,1 148,0 a 74,74 0 1,1 -148,0" />
-                      </defs>
-                      <text fill="rgba(228,228,231,0.58)" fontSize="11.2" fontWeight="600" letterSpacing="3.6">
-                        <textPath href="#circleTextPath" startOffset="0%">
-                          VTU MEDIA CLUB • CAPTURE CREATE INSPIRE •
-                        </textPath>
-                      </text>
-                    </svg>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#120406] border border-[#B21F29]/40 flex items-center justify-center shadow-inner p-3.5 group-hover:scale-105 transition-all shadow-glow-terracotta/30">
-                        <img src="assets/logo.png" alt="VTU Media Logo" className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(178,31,41,0.6)]" />
+            {/* Join CTA Section */}
+            <section className="relative py-20 sm:py-28 border-t border-white/[0.06]">
+              <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                  <div className="md:col-span-5 flex flex-col items-center md:items-start space-y-6">
+                    <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-full bg-white/[0.04] border border-[#B21F29]/30 text-xs font-medium text-zinc-300 shadow-sm backdrop-blur-md">
+                      <img src="assets/logo.png" alt="" className="h-4 w-auto object-contain" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#B21F29] rec-dot"></span>
+                      <span>Recruitment Open — 2026 Batch</span>
+                    </div>
+                    <div className="relative w-44 h-44 sm:w-52 sm:h-52 flex items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] group">
+                      <svg viewBox="0 0 200 200" className="w-full h-full animate-spin-slow p-2">
+                        <defs>
+                          <path id="circleTextPath" d="M 100, 100 m -74, 0 a 74,74 0 1,1 148,0 a 74,74 0 1,1 -148,0" />
+                        </defs>
+                        <text fill="rgba(228,228,231,0.58)" fontSize="11.2" fontWeight="600" letterSpacing="3.6">
+                          <textPath href="#circleTextPath" startOffset="0%">
+                            VTU MEDIA CLUB • CAPTURE CREATE INSPIRE •
+                          </textPath>
+                        </text>
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#120406] border border-[#B21F29]/40 flex items-center justify-center shadow-inner p-3.5 group-hover:scale-105 transition-all">
+                          <img src="assets/logo.png" alt="VTU Media Logo" className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(178,31,41,0.6)]" />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-
-                <div className="md:col-span-7 text-center md:text-right space-y-6">
-                  <p className="text-sm sm:text-base text-zinc-400 tracking-wide">Let's roll</p>
-                  <h2 className="text-4xl sm:text-6xl lg:text-7xl font-semibold tracking-tight text-white leading-[1.03]">
-                    Join the<br />
-                    <span className="font-editorial text-zinc-300 font-normal text-[1.12em]">Community</span>
-                  </h2>
-                  <p className="text-sm text-zinc-400 max-w-md ml-auto mr-auto md:mr-0">
-                    Whether you shoot on cinema rigs, grade in DaVinci, design motion graphics, or want to learn from day one — your seat in the studio is waiting.
-                  </p>
-                  <div className="pt-2 flex flex-wrap items-center justify-center md:justify-end gap-4">
-                    <button onClick={() => setBookingOpen(true)} className="px-5 py-3 rounded-full text-xs font-medium text-zinc-300 border border-white/[0.12] hover:bg-white/[0.06] transition-all">
-                      Book Campus Coverage
-                    </button>
-                    <button onClick={() => setJoinOpen(true)} className="group inline-flex items-center gap-3.5 pl-6 pr-2 py-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.14] hover:border-[#B21F29]/50 transition-all">
-                      <span className="text-sm font-medium text-white underline decoration-white/30 underline-offset-4 group-hover:decoration-white">Apply to Join</span>
-                      <span className="w-9 h-9 rounded-full bg-white text-obsidian flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.4" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                        </svg>
-                      </span>
-                    </button>
+                  <div className="md:col-span-7 text-center md:text-right space-y-6">
+                    <p className="text-sm sm:text-base text-zinc-400 tracking-wide">Let's roll</p>
+                    <h2 className="text-4xl sm:text-6xl lg:text-7xl font-semibold tracking-tight text-white leading-[1.03]">
+                      Join the<br />
+                      <span className="font-editorial text-zinc-300 font-normal text-[1.12em]">Community</span>
+                    </h2>
+                    <p className="text-sm text-zinc-400 max-w-md ml-auto mr-auto md:mr-0">
+                      Whether you shoot on cinema rigs, grade in DaVinci, design motion graphics, or want to learn from day one — your seat in the studio is waiting.
+                    </p>
+                    <div className="pt-2 flex flex-wrap items-center justify-center md:justify-end gap-4">
+                      <button onClick={() => setBookingOpen(true)} className="px-5 py-3 rounded-full text-xs font-medium text-zinc-300 border border-white/[0.12] hover:bg-white/[0.06] transition-all">
+                        Book Campus Coverage
+                      </button>
+                      <button onClick={() => setJoinOpen(true)} className="group inline-flex items-center gap-3.5 pl-6 pr-2 py-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.14] hover:border-[#B21F29]/50 transition-all">
+                        <span className="text-sm font-medium text-white underline decoration-white/30 underline-offset-4 group-hover:decoration-white">Apply to Join</span>
+                        <span className="w-9 h-9 rounded-full bg-white text-obsidian flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.4" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                          </svg>
+                        </span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
-        </div>
+            </section>
+          </div>
+        )}
+
+        {/* ══════════════════════════════════════════
+            TEAM PROFILE PAGE — replaces main content
+            when user clicks "Team Profile" in navbar
+            ══════════════════════════════════════════ */}
+        {activePage === 'team' && (
+          <div
+            id="page-team"
+            style={{ animation: 'pageSlideIn 0.45s cubic-bezier(0.22,1,0.36,1) both' }}
+          >
+            <MembersWall onOpenMemberModal={(idx) => setMemberIdx(idx)} />
+          </div>
+        )}
+
       </main>
 
+      {/* Footer always visible */}
       <Footer
         onOpenBooking={() => setBookingOpen(true)}
         showToast={showToast}

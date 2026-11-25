@@ -7,51 +7,68 @@ export default function Navbar({
   soundActive,
   onToggleSound,
   onOpenBooking,
-  onOpenJoin
+  onOpenJoin,
+  activePage,
+  onPageChange,
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activePage, setActivePage] = useState(window.location.hash?.slice(1) || 'home');
 
+  // For the scrollable home page, track if user is in gallery section
   useEffect(() => {
-    const handleHashChange = () => setActivePage(window.location.hash.slice(1) || 'home');
-    window.addEventListener('hashchange', handleHashChange);
+    if (activePage !== 'home' && activePage !== 'gallery') return;
 
-    const sections = ['home', 'gallery', 'about', 'team'];
+    const sections = ['home', 'gallery'];
     const handleScroll = () => {
       const scrollY = window.scrollY + 180;
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i]);
         if (el && el.offsetTop <= scrollY) {
-          setActivePage(sections[i]);
+          onPageChange(sections[i]);
           break;
         }
       }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('hashchange', handleHashChange);
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [activePage, onPageChange]);
 
-  const handlePageChange = (value) => {
-    setActivePage(value);
-    window.location.hash = value;
+  const handleNavClick = (value) => {
+    setMobileOpen(false);
+    if (value === 'home') {
+      // If already on home/gallery page, scroll to top
+      if (activePage === 'home' || activePage === 'gallery') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      onPageChange('home');
+    } else if (value === 'gallery') {
+      // If already on home page, scroll to gallery section
+      if (activePage === 'home' || activePage === 'gallery') {
+        const el = document.getElementById('gallery');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+      onPageChange('gallery');
+    } else {
+      // 'about' and 'team' open as new page views
+      onPageChange(value);
+    }
   };
 
   return (
     <header id="navbar" className="sticky top-0 z-50 w-full border-b border-white/[0.07] bg-obsidian/75 backdrop-blur-xl transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-4">
-        {/* Brand Logo */}
-        <a href="#home" className="flex items-center gap-3 group focus:outline-none py-1">
+        {/* Brand Logo — always goes home */}
+        <button
+          onClick={() => handleNavClick('home')}
+          className="flex items-center gap-3 group focus:outline-none py-1"
+        >
           <img
             src="assets/logo.png"
             alt="VTU Media Club"
             className="h-10 sm:h-11 w-auto object-contain group-hover:scale-105 group-hover:brightness-110 transition-all duration-300 drop-shadow-[0_0_12px_rgba(178,31,41,0.35)]"
           />
-        </a>
+        </button>
 
-        {/* Center Pill Navigation (Desktop) — 4 Core Pages */}
+        {/* Center Pill Navigation (Desktop) */}
         <nav aria-label="Primary Navigation" className="hidden lg:flex items-center">
           <RubberSegment
             items={[
@@ -61,7 +78,7 @@ export default function Navbar({
               { value: 'team', label: 'Team Profile' }
             ]}
             value={activePage}
-            onChange={handlePageChange}
+            onChange={handleNavClick}
             trackColor="rgba(255,255,255,0.07)"
             thumbColor="rgba(255,255,255,0.13)"
             textColor="#d4d4d8"
@@ -80,7 +97,7 @@ export default function Navbar({
           />
         </nav>
 
-        {/* Right Action & Interactive Controls Buttons */}
+        {/* Right Action & Interactive Controls */}
         <div className="hidden sm:flex items-center gap-2">
           {/* Cinema Viewfinder HUD Toggle */}
           <button
@@ -107,12 +124,12 @@ export default function Navbar({
             }`}
           >
             {soundActive ? (
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M11 5L6 9H2v6h4l5 4V5z"/>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M11 5L6 9H2v6h4l5 4V5z"/>
               </svg>
             ) : (
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5.586 15H2v-6h3.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z M17 14l5-5m0 5l-5-5"/>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5.586 15H2v-6h3.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z M17 14l5-5m0 5l-5-5"/>
               </svg>
             )}
           </button>
@@ -138,25 +155,39 @@ export default function Navbar({
           className="lg:hidden p-2.5 rounded-full border border-white/[0.1] bg-white/[0.03] text-zinc-200 hover:bg-white/[0.08] transition-colors"
         >
           {mobileOpen ? (
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           ) : (
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16" />
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 7h16M4 12h16M4 17h16" />
             </svg>
           )}
         </button>
       </div>
 
-      {/* Mobile Navigation Drawer — 4 Core Pages */}
+      {/* Mobile Navigation Drawer */}
       {mobileOpen && (
         <div className="lg:hidden border-t border-white/[0.08] bg-obsidian/95 backdrop-blur-2xl px-5 py-5 space-y-4">
           <div className="flex flex-col space-y-1">
-            <a href="#home" onClick={() => setMobileOpen(false)} className="px-4 py-2.5 rounded-xl text-sm font-medium text-white bg-white/[0.06]">Home</a>
-            <a href="#gallery" onClick={() => setMobileOpen(false)} className="px-4 py-2.5 rounded-xl text-sm font-medium text-zinc-300 hover:text-white hover:bg-white/[0.05]">Gallery</a>
-            <a href="#about" onClick={() => setMobileOpen(false)} className="px-4 py-2.5 rounded-xl text-sm font-medium text-zinc-300 hover:text-white hover:bg-white/[0.05]">About</a>
-            <a href="#team" onClick={() => setMobileOpen(false)} className="px-4 py-2.5 rounded-xl text-sm font-medium text-zinc-300 hover:text-white hover:bg-white/[0.05]">Team Profile</a>
+            {[
+              { value: 'home', label: 'Home' },
+              { value: 'gallery', label: 'Gallery' },
+              { value: 'about', label: 'About' },
+              { value: 'team', label: 'Team Profile' },
+            ].map(({ value, label }) => (
+              <button
+                key={value}
+                onClick={() => handleNavClick(value)}
+                className={`px-4 py-2.5 rounded-xl text-sm font-medium text-left transition-all ${
+                  activePage === value
+                    ? 'text-white bg-white/[0.08]'
+                    : 'text-zinc-300 hover:text-white hover:bg-white/[0.05]'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
           </div>
           <div className="grid grid-cols-2 gap-3 pt-2 border-t border-white/[0.08]">
             <button onClick={() => { setMobileOpen(false); onOpenBooking(); }} className="py-2.5 rounded-full text-xs font-medium text-zinc-200 border border-white/[0.14] bg-white/[0.03]">Book Coverage</button>
