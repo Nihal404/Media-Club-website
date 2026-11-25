@@ -1081,6 +1081,11 @@ const GlowCursor = ({
         if (footer) footer.style.display = '';
         window.scrollTo({ top: 0 });
       } else if (pageId === 'team') {
+        // Trigger cinema loading animation for Team Profile!
+        if (typeof window.showPreloader === 'function') {
+          window.showPreloader(1200);
+        }
+
         if (homeSections) homeSections.style.display = 'none';
         if (aboutSection) aboutSection.style.display = 'none';
         if (teamSection) {
@@ -1090,7 +1095,7 @@ const GlowCursor = ({
           if (typeof renderCreators === 'function') renderCreators();
         }
         if (footer) footer.style.display = '';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0 });
       } else if (pageId === 'gallery') {
         if (homeSections) homeSections.style.display = '';
         if (aboutSection) aboutSection.style.display = 'none';
