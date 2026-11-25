@@ -2875,24 +2875,71 @@ const GlowCursor = ({
     }
     window.shiftCreators = shiftCreators;
 
+    const CORE_KEYWORDS = ['president', 'vice president', 'head of pr', 'web ui/ux lead', 'lead videographer', 'treasurer', 'social media lead'];
+    const CORE_NAMES = ['vikram', 'harshada', 'nihal', 'adarsh', 'prajwal v gowda', 'agam', 'araman'];
+
     function getMemberCategory(m) {
-      if (m && (m.category === 'Core Team' || m.category === 'Members')) return m.category;
-      const coreNames = ['Vikram', 'Harshada', 'Nihal', 'Adarsh', 'Prajwal V Gowda', 'Agam', 'Araman'];
-      return (m && coreNames.includes(m.name)) ? 'Core Team' : 'Members';
+      if (!m) return 'Members';
+      if (m.category === 'Core Team' || m.category === 'Members') return m.category;
+      const nameLower = (m.name || '').toLowerCase().trim();
+      const roleLower = (m.role || '').toLowerCase();
+      const isCore = CORE_NAMES.includes(nameLower) || CORE_KEYWORDS.some(kw => roleLower.includes(kw));
+      return isCore ? 'Core Team' : 'Members';
     }
     window.getMemberCategory = getMemberCategory;
+
+    function healMembersList(list) {
+      if (!Array.isArray(list) || list.length === 0) return list;
+      const currentMembersCount = list.filter(m => m.category === 'Members').length;
+      // If 0 in Members but multiple members exist, auto-rebalance based on actual role & name
+      if (currentMembersCount === 0 && list.length > 2) {
+        list.forEach(m => {
+          const nameLower = (m.name || '').toLowerCase().trim();
+          const roleLower = (m.role || '').toLowerCase();
+          const isCore = CORE_NAMES.includes(nameLower) || CORE_KEYWORDS.some(kw => roleLower.includes(kw));
+          m.category = isCore ? 'Core Team' : 'Members';
+        });
+        try {
+          localStorage.setItem('vtu_media_members', JSON.stringify(list));
+        } catch(e) {}
+      } else {
+        list.forEach(m => {
+          if (m.category !== 'Core Team' && m.category !== 'Members') {
+            const nameLower = (m.name || '').toLowerCase().trim();
+            const roleLower = (m.role || '').toLowerCase();
+            const isCore = CORE_NAMES.includes(nameLower) || CORE_KEYWORDS.some(kw => roleLower.includes(kw));
+            m.category = isCore ? 'Core Team' : 'Members';
+          }
+        });
+      }
+      return list;
+    }
+    window.healMembersList = healMembersList;
+
     if (typeof window.activeMemberCategory === 'undefined') {
       window.activeMemberCategory = 'Core Team';
     }
 
+    window.switchMemberCategory = function(cat) {
+      window.activeMemberCategory = cat;
+      if (typeof playWhooshSound === 'function') playWhooshSound();
+      renderAllMembers();
+    };
+
     function renderAllMembers() {
-      const activeMembersList = getStoredData('vtu_media_members', allMembers);
+      let activeMembersList = getStoredData('vtu_media_members', allMembers);
+      activeMembersList = healMembersList(activeMembersList);
       const bar = document.getElementById('memberFilterBar');
       const grid = document.getElementById('allMembersGrid');
       if (!bar || !grid) return;
 
       const coreCount = activeMembersList.filter(m => getMemberCategory(m) === 'Core Team').length;
       const membersCount = activeMembersList.filter(m => getMemberCategory(m) === 'Members').length;
+
+      // Ensure active category is valid
+      if (window.activeMemberCategory !== 'Core Team' && window.activeMemberCategory !== 'Members') {
+        window.activeMemberCategory = coreCount > 0 ? 'Core Team' : 'Members';
+      }
 
       const tabs = [
         { id: 'Core Team', label: '⭐ Core Team', count: coreCount },
@@ -2902,7 +2949,7 @@ const GlowCursor = ({
       bar.innerHTML = tabs.map(t => {
         const isActive = (window.activeMemberCategory === t.id);
         return `
-          <button onclick="window.activeMemberCategory='${t.id}'; if(typeof playWhooshSound==='function')playWhooshSound(); renderAllMembers()" class="px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-300 flex items-center gap-2 ${
+          <button type="button" onclick="window.switchMemberCategory('${t.id}')" class="cursor-pointer px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-300 flex items-center gap-2 ${
             isActive
               ? 'bg-[#B21F29] text-white border border-[#B21F29] shadow-lg shadow-[#B21F29]/40 scale-105'
               : 'bg-white/[0.04] text-zinc-400 border border-white/[0.08] hover:text-white hover:bg-white/[0.08]'
@@ -2926,9 +2973,15 @@ const GlowCursor = ({
       }
 
       if (filtered.length === 0) {
+        const otherCat = window.activeMemberCategory === 'Core Team' ? 'Members' : 'Core Team';
         grid.innerHTML = `
-          <div class="col-span-full py-16 text-center text-zinc-500">
+          <div class="col-span-full py-16 text-center text-zinc-500 space-y-3">
             <p class="text-sm">No creators found in ${window.activeMemberCategory}${memberSearchQuery ? ' matching "' + memberSearchQuery + '"' : ''}.</p>
+            <div>
+              <button onclick="window.switchMemberCategory('${otherCat}')" class="px-4 py-2 rounded-full text-xs font-semibold bg-white/[0.06] hover:bg-white/[0.14] border border-white/10 text-white transition-all">
+                View ${otherCat} (${otherCat === 'Core Team' ? coreCount : membersCount}) →
+              </button>
+            </div>
           </div>
         `;
         return;
@@ -2953,7 +3006,7 @@ const GlowCursor = ({
 
               <!-- Top Segregation Tier Pill & Rec Dot -->
               <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
-                <span class="px-2.5 py-0.5 rounded-full ${cat === 'Core Team' ? 'bg-[#B21F29]/80 text-white border border-[#B21F29]' : 'bg-black/60 text-zinc-200 border border-white/15'} backdrop-blur-md text-[10px] font-semibold">${cat === 'Core Team' ? '⭐ Core Team' : '👥 Member'}</span>
+                <span class="px-2.5 py-0.5 rounded-full ${cat === 'Core Team' ? 'bg-[#B21F29]/80 text-white border border-[#B21F29]' : 'bg-blue-600/80 text-white border border-blue-500'} backdrop-blur-md text-[10px] font-semibold">${cat === 'Core Team' ? '⭐ Core Team' : '👥 Member'}</span>
                 <span class="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-[9px] font-mono text-[#fda4af] opacity-0 group-hover:opacity-100 transition-opacity">${(m.exif || '').split('•')[0]}</span>
               </div>
 

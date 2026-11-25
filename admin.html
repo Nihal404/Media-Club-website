@@ -1231,12 +1231,43 @@
     let heroVideoData = {};
 
     let currentTab = 'team';
+    const CORE_KEYWORDS = ['president', 'vice president', 'head of pr', 'web ui/ux lead', 'lead videographer', 'treasurer', 'social media lead'];
+    const CORE_NAMES = ['vikram', 'harshada', 'nihal', 'adarsh', 'prajwal v gowda', 'agam', 'araman'];
+
     function getMemberCategory(m) {
-      if (m && (m.category === 'Core Team' || m.category === 'Members')) return m.category;
-      const coreNames = ['Vikram', 'Harshada', 'Nihal', 'Adarsh', 'Prajwal V Gowda', 'Agam', 'Araman'];
-      return (m && coreNames.includes(m.name)) ? 'Core Team' : 'Members';
+      if (!m) return 'Members';
+      if (m.category === 'Core Team' || m.category === 'Members') return m.category;
+      const nameLower = (m.name || '').toLowerCase().trim();
+      const roleLower = (m.role || '').toLowerCase();
+      const isCore = CORE_NAMES.includes(nameLower) || CORE_KEYWORDS.some(kw => roleLower.includes(kw));
+      return isCore ? 'Core Team' : 'Members';
     }
     window.getMemberCategory = getMemberCategory;
+
+    function healMembersList(list) {
+      if (!Array.isArray(list) || list.length === 0) return list;
+      const currentMembersCount = list.filter(m => m.category === 'Members').length;
+      if (currentMembersCount === 0 && list.length > 2) {
+        list.forEach(m => {
+          const nameLower = (m.name || '').toLowerCase().trim();
+          const roleLower = (m.role || '').toLowerCase();
+          const isCore = CORE_NAMES.includes(nameLower) || CORE_KEYWORDS.some(kw => roleLower.includes(kw));
+          m.category = isCore ? 'Core Team' : 'Members';
+        });
+        safeSetItem('vtu_media_members', list);
+      } else {
+        list.forEach(m => {
+          if (m.category !== 'Core Team' && m.category !== 'Members') {
+            const nameLower = (m.name || '').toLowerCase().trim();
+            const roleLower = (m.role || '').toLowerCase();
+            const isCore = CORE_NAMES.includes(nameLower) || CORE_KEYWORDS.some(kw => roleLower.includes(kw));
+            m.category = isCore ? 'Core Team' : 'Members';
+          }
+        });
+      }
+      return list;
+    }
+    window.healMembersList = healMembersList;
     let currentCategoryFilter = 'All';
     let currentDeptFilter = 'All';
     let currentGalleryCategory = 'All';
@@ -1286,6 +1317,7 @@
       try {
         const m = localStorage.getItem('vtu_media_members');
         membersData = m ? JSON.parse(m) : [...DEFAULT_MEMBERS];
+      membersData = healMembersList(membersData);
       try {
         const cr = localStorage.getItem('vtu_media_creators');
         creatorsData = cr ? JSON.parse(cr) : [...DEFAULT_CREATORS];
@@ -1434,10 +1466,16 @@
         if (deptFilter) deptFilter.classList.remove('hidden');
         if (act) {
           act.innerHTML = `
-            <button onclick="openMemberModal(null)" class="px-4 py-2.5 rounded-xl bg-[#B21F29] hover:bg-[#930510] text-white text-xs font-semibold transition-all flex items-center gap-1.5 shadow-lg shadow-[#B21F29]/30 cursor-pointer">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
-              <span>Add Team Member</span>
-            </button>
+            <div class="flex items-center gap-2">
+              <button onclick="openMemberModal(null, 'Members')" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-all flex items-center gap-1.5 shadow-md cursor-pointer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+                <span>+ Add Member</span>
+              </button>
+              <button onclick="openMemberModal(null, 'Core Team')" class="px-3.5 py-2 rounded-xl bg-[#B21F29] hover:bg-[#930510] text-white text-xs font-semibold transition-all flex items-center gap-1.5 shadow-lg shadow-[#B21F29]/30 cursor-pointer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+                <span>+ Add Core Team</span>
+              </button>
+            </div>
           `;
         }
         renderTeamCards();
