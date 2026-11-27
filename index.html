@@ -185,9 +185,9 @@
   </script>
 
   <!-- Separated Modular CSS: Core Design System, Animations & Cinema Effects -->
-  <link rel="stylesheet" href="src/styles/main.css?v=20261128_full_black_loader" />
-  <link rel="stylesheet" href="src/styles/animations.css?v=20261128_full_black_loader" />
-  <link rel="stylesheet" href="src/styles/effects.css?v=20261128_full_black_loader" />
+  <link rel="stylesheet" href="src/styles/main.css?v=20261128_compact_loader" />
+  <link rel="stylesheet" href="src/styles/animations.css?v=20261128_compact_loader" />
+  <link rel="stylesheet" href="src/styles/effects.css?v=20261128_compact_loader" />
 
   <!-- React 18 & ReactDOM 18 Engine -->
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
@@ -210,9 +210,9 @@
     class="fixed inset-0 z-[100] w-screen h-screen flex items-center justify-center bg-black overflow-hidden select-none transition-opacity duration-500 ease-out"
     style="background-color: #000000 !important; background: #000000 !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important;">
     <!-- Centered Studio Video: 100% Seamless Full Black Screen -->
-    <div class="relative w-full h-full flex items-center justify-center bg-black">
+    <div class="relative w-full h-full flex items-center justify-center bg-black p-4">
       <video id="preloaderVideo" src="assets/loader.mp4" autoplay muted playsinline preload="auto"
-        class="w-full h-full object-contain"></video>
+        class="w-full max-w-[280px] sm:max-w-[360px] md:max-w-[420px] max-h-[35vh] h-auto object-contain"></video>
     </div>
 
     <!-- Discrete Minimalist Skip in Bottom Right -->
@@ -244,7 +244,7 @@
   <div id="root"></div>
 
   <!-- React JS Application Bundle with Cache-Buster -->
-  <script src="src/bundle.js?v=20261128_full_black_loader"></script>
+  <script src="src/bundle.js?v=20261128_compact_loader"></script>
 
   <!-- Noscript Fallback -->
   <noscript>
