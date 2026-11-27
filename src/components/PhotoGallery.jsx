@@ -21,7 +21,7 @@ export default function PhotoGallery({ onOpenLightbox, onOpenCategory }) {
     <section id="gallery" className="relative py-20 sm:py-28 border-t border-white/[0.06] overflow-hidden">
 
       {/* 3-Row Alternating Cinema Stills Marquee */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 flex flex-col sm:flex-row sm:items-end justify-between gap-3 reveal-up">
+      <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 mb-10 flex flex-col sm:flex-row sm:items-end justify-between gap-3 reveal-up">
         <div>
           <p className="text-xs uppercase tracking-widest text-zinc-500 font-semibold">Visual Gallery &amp; Archive</p>
           <h2 className="text-2xl sm:text-4xl font-semibold text-white mt-1">
@@ -59,7 +59,7 @@ export default function PhotoGallery({ onOpenLightbox, onOpenCategory }) {
       </div>
 
       {/* Interactive Filterable Photo Gallery Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 space-y-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 reveal-up">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-medium text-[#B21F29] mb-3">

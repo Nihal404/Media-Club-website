@@ -35,7 +35,7 @@ export default function MembersWall({ onOpenMemberModal }) {
 
   return (
     <section id="team" className="relative py-20 sm:py-28 border-t border-white/[0.06]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
 
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto space-y-3 mb-14 reveal-up">

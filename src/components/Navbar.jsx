@@ -55,7 +55,7 @@ export default function Navbar({
 
   return (
     <header id="navbar" className="sticky top-0 z-50 w-full border-b border-white/[0.07] bg-obsidian/75 backdrop-blur-xl transition-all duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-4">
+      <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-3.5 flex items-center justify-between gap-4">
         {/* Brand Logo — always goes home */}
         <button
           onClick={() => handleNavClick('home')}

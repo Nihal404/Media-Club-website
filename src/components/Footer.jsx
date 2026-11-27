@@ -12,7 +12,7 @@ export default function Footer({ onOpenBooking, showToast }) {
 
   return (
     <footer className="relative z-10 pb-12 pt-4">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         <div className="flex items-center justify-between text-[11px] text-zinc-500 pb-4 px-1">
           <span>• Cinema-Grade Student Collective</span>
           <span>• Jnana Sangama, Belagavi</span>
