@@ -166,15 +166,15 @@ export default function MembersWall({ onOpenMemberModal }) {
             })}
           </div>
 
-          {/* Interactive Member Portrait Cards Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          {/* Interactive Member Portrait Cards Grid (Compact & Sleek) */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3.5 sm:gap-4 md:gap-5">
             {filteredMembers.map((m, idx) => {
               const realIdx = allMembers.indexOf(m);
               return (
                 <div
                   key={idx}
                   onClick={() => { playShutterSound(); onOpenMemberModal(realIdx); }}
-                  className="member-card tilt-card group relative cursor-pointer rounded-[1.5rem] overflow-hidden bg-surface border border-white/[0.09] hover:border-[#B21F29]/60 shadow-xl transition-all"
+                  className="member-card tilt-card group relative cursor-pointer rounded-[1.25rem] overflow-hidden bg-surface border border-white/[0.09] hover:border-[#B21F29]/60 shadow-xl transition-all"
                   data-tilt="6"
                 >
                   <div className="relative aspect-[3/4] overflow-hidden bg-obsidian">
@@ -182,11 +182,11 @@ export default function MembersWall({ onOpenMemberModal }) {
                     <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/20 to-transparent"></div>
 
                     {/* Camera Viewfinder Corner Brackets on Hover */}
-                    <div className="pointer-events-none absolute inset-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <span className="absolute top-0 left-0 w-3.5 h-3.5 border-t-2 border-l-2 border-[#B21F29] rounded-tl-sm"></span>
-                      <span className="absolute top-0 right-0 w-3.5 h-3.5 border-t-2 border-r-2 border-[#B21F29] rounded-tr-sm"></span>
-                      <span className="absolute bottom-16 left-0 w-3.5 h-3.5 border-b-2 border-l-2 border-[#B21F29] rounded-bl-sm"></span>
-                      <span className="absolute bottom-16 right-0 w-3.5 h-3.5 border-b-2 border-r-2 border-[#B21F29] rounded-br-sm"></span>
+                    <div className="pointer-events-none absolute inset-2.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <span className="absolute top-0 left-0 w-2.5 h-2.5 border-t-2 border-l-2 border-[#B21F29] rounded-tl-sm"></span>
+                      <span className="absolute top-0 right-0 w-2.5 h-2.5 border-t-2 border-r-2 border-[#B21F29] rounded-tr-sm"></span>
+                      <span className="absolute bottom-12 left-0 w-2.5 h-2.5 border-b-2 border-l-2 border-[#B21F29] rounded-bl-sm"></span>
+                      <span className="absolute bottom-12 right-0 w-2.5 h-2.5 border-b-2 border-r-2 border-[#B21F29] rounded-br-sm"></span>
                     </div>
 
                     {/* Top Department Pill & Rec Dot */}
@@ -196,11 +196,11 @@ export default function MembersWall({ onOpenMemberModal }) {
                     </div>
 
                     {/* Bottom Identity Overlay */}
-                    <div className="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-black/60 backdrop-blur-md border border-white/[0.1] group-hover:border-[#B21F29]/40 transition-colors">
-                      <h4 className="text-sm font-semibold text-white truncate">{m.name}</h4>
-                      <p className="text-[11px] text-[#B21F29] truncate">{m.role}</p>
-                      <div className="flex items-center justify-between mt-1.5 pt-1.5 border-t border-white/[0.08] text-[10px] text-zinc-400 font-mono">
-                        <span className="truncate">{m.handle}</span>
+                    <div className="absolute bottom-2.5 left-2.5 right-2.5 p-2.5 rounded-xl bg-black/60 backdrop-blur-md border border-white/[0.1] group-hover:border-[#B21F29]/40 transition-colors">
+                      <h4 className="text-xs sm:text-sm font-semibold text-white truncate">${m.name}</h4>
+                      <p className="text-[10px] text-[#B21F29] truncate mt-0.5">${m.role}</p>
+                      <div className="flex items-center justify-between mt-1 pt-1 border-t border-white/[0.08] text-[9px] text-zinc-400 font-mono">
+                        <span className="truncate">${m.handle}</span>
                         <span className="text-white opacity-70 group-hover:opacity-100 font-sans">Kit →</span>
                       </div>
                     </div>
