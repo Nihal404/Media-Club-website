@@ -166,7 +166,7 @@ export default function CampusImpact({ onOpenBooking }) {
                   <p className="text-xs font-mono uppercase tracking-wider text-[#B21F29]">Deliverables Provided at ₹0 Cost:</p>
                   <div className="flex flex-wrap gap-2">
                     {activeClub.deliverables.map((d, i) => (
-                      <span key={i} className="px-3 py-1 rounded-full text-xs bg-white/[0.05] border border-white/10 text-zinc-200">✓ {d}</span>
+                      <span key={i} className="px-3 py-1 rounded-full text-xs bg-white/[0.05] border border-white/10 text-zinc-200">{d}</span>
                     ))}
                   </div>
                 </div>

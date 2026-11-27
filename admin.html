@@ -93,10 +93,12 @@
             <button
               type="button"
               onclick="togglePinVisibility()"
-              class="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white text-xs font-mono transition-colors cursor-pointer"
+              class="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white transition-colors cursor-pointer p-1"
               title="Show / Hide PIN"
             >
-              <span id="pinToggleIcon">👁</span>
+              <span id="pinToggleIcon" class="inline-flex items-center">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              </span>
             </button>
           </div>
           <p id="pinError" class="text-xs text-red-400 mt-2 hidden"></p>
@@ -141,11 +143,13 @@
           <!-- Primary Action: Force Update Live Site -->
           <button
             onclick="openForceUpdateModal()"
-            title="Force publish all updates so they appear live on Vercel for all visitors"
-            class="px-4 py-2 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-[#B21F29] to-[#d62839] hover:from-[#d62839] hover:to-[#B21F29] border border-[#B21F29]/60 shadow-lg shadow-[#B21F29]/30 transition-all flex items-center gap-1.5 cursor-pointer"
+            title="Publish updates live to production"
+            class="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-[#B21F29] to-[#d62839] hover:from-[#d62839] hover:to-[#B21F29] border border-[#B21F29]/60 shadow-lg shadow-[#B21F29]/30 transition-all flex items-center gap-1.5 cursor-pointer"
           >
-            <span class="text-amber-300">⚡</span>
-            <span>Force Update Live Site</span>
+            <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+            </svg>
+            <span>Publish to Live Site</span>
           </button>
 
           <a
@@ -163,10 +167,12 @@
 
           <button
             onclick="openChangePinModal()"
-            title="Change your private secret master PIN"
+            title="Change master access PIN"
             class="px-3 py-2 rounded-xl text-xs font-mono text-zinc-300 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 transition-all flex items-center gap-1.5 cursor-pointer"
           >
-            <span class="text-amber-400">🔑</span>
+            <svg class="w-3.5 h-3.5 text-zinc-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+            </svg>
             <span class="hidden sm:inline">Change PIN</span>
           </button>
 
@@ -290,10 +296,10 @@
       <!-- Sub-Toggle: Roster vs Featured Storytellers -->
       <div class="flex items-center gap-2 p-1 rounded-2xl glass-panel w-fit mb-6">
         <button onclick="setTeamSubView('roster')" id="subViewBtn-roster" class="px-4 py-2 rounded-xl text-xs font-semibold bg-[#B21F29] text-white transition-all shadow-md">
-          👥 Full Team Roster (16+ Cards)
+          Team Roster
         </button>
         <button onclick="setTeamSubView('featured')" id="subViewBtn-featured" class="px-4 py-2 rounded-xl text-xs font-semibold text-zinc-300 hover:text-white transition-all">
-          ⭐ Featured Storytellers (Top Carousel)
+          Featured Storytellers (Carousel)
         </button>
       </div>
 
@@ -637,8 +643,8 @@
           <div>
             <label class="block text-xs font-mono text-zinc-300 mb-1">TEAM SEGREGATION / TIER *</label>
             <select id="memberCategory" class="w-full px-3.5 py-2 rounded-xl glass-input text-xs text-white focus:outline-none bg-[#120406]">
-              <option value="Members">👥 Members (General Crew)</option>
-              <option value="Core Team">⭐ Core Team (Leadership & Heads)</option>
+              <option value="Members">Members (General Crew)</option>
+              <option value="Core Team">Core Team (Leadership &amp; Heads)</option>
             </select>
           </div>
 
@@ -753,13 +759,17 @@
     <div class="glass-modal relative w-full max-w-xl max-h-[92vh] overflow-y-auto custom-scroll rounded-3xl p-6 sm:p-8 space-y-6">
       <div class="flex items-center justify-between border-b border-white/[0.08] pb-4">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-2xl bg-[#B21F29]/20 border border-[#B21F29]/50 flex items-center justify-center text-xl text-amber-300">⚡</div>
+          <div class="w-10 h-10 rounded-2xl bg-[#B21F29]/20 border border-[#B21F29]/50 flex items-center justify-center text-white">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+          </div>
           <div>
-            <h3 class="text-lg font-bold text-white">Force Update Live Site (Vercel)</h3>
-            <p class="text-xs text-zinc-400">Make your CMS changes live permanently for all visitors worldwide</p>
+            <h3 class="text-lg font-bold text-white">Publish Updates to Live Site</h3>
+            <p class="text-xs text-zinc-400">Deploy your CMS updates to production for all visitors worldwide</p>
           </div>
         </div>
-        <button onclick="closeForceUpdateModal()" class="w-8 h-8 rounded-full bg-white/[0.06] hover:bg-white/[0.14] flex items-center justify-center text-zinc-300">✕</button>
+        <button onclick="closeForceUpdateModal()" class="w-8 h-8 rounded-full bg-white/[0.06] hover:bg-white/[0.14] flex items-center justify-center text-zinc-300">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
       </div>
 
       <!-- Cloud Deploy Option (Automated Vercel Sync) -->
@@ -791,7 +801,10 @@
           onclick="deployToGithubLive()"
           class="w-full py-3 rounded-xl bg-gradient-to-r from-[#B21F29] to-[#d62839] hover:brightness-110 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-[#B21F29]/30 transition-all cursor-pointer"
         >
-          <span>🚀 Deploy Directly to Live Site</span>
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+          </svg>
+          <span>Deploy to Live Site</span>
         </button>
         <div id="githubDeployStatus" class="hidden text-xs font-mono p-3 rounded-xl bg-black/50 border border-white/10 leading-relaxed"></div>
       </div>
@@ -809,7 +822,10 @@
           onclick="saveLocalSiteDataFile()"
           class="w-full py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
         >
-          <span>💾 Download / Save site-data.json</span>
+          <svg class="w-4 h-4 text-zinc-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+          </svg>
+          <span>Export site-data.json</span>
         </button>
       </div>
 
@@ -831,13 +847,17 @@
     <div class="glass-modal relative w-full max-w-md rounded-3xl p-6 sm:p-8 space-y-6">
       <div class="flex items-center justify-between border-b border-white/[0.08] pb-4">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-2xl bg-[#B21F29]/20 border border-[#B21F29]/40 flex items-center justify-center text-xl text-amber-400">🔑</div>
+          <div class="w-10 h-10 rounded-2xl bg-[#B21F29]/20 border border-[#B21F29]/40 flex items-center justify-center text-white">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg>
+          </div>
           <div>
             <h3 class="text-lg font-bold text-white">Change Master PIN</h3>
-            <p class="text-xs text-zinc-400">Set a private secret password only YOU know</p>
+            <p class="text-xs text-zinc-400">Set a private secret password for this console</p>
           </div>
         </div>
-        <button onclick="closeChangePinModal()" class="w-8 h-8 rounded-full bg-white/[0.06] hover:bg-white/[0.14] flex items-center justify-center text-zinc-300">✕</button>
+        <button onclick="closeChangePinModal()" class="w-8 h-8 rounded-full bg-white/[0.06] hover:bg-white/[0.14] flex items-center justify-center text-zinc-300">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
       </div>
 
       <form onsubmit="handleChangePinSubmit(event)" class="space-y-4">
@@ -1471,10 +1491,10 @@
       if (!pinInput) return;
       if (pinInput.type === 'password') {
         pinInput.type = 'text';
-        if (icon) icon.textContent = '🔒';
+        if (icon) icon.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>';
       } else {
         pinInput.type = 'password';
-        if (icon) icon.textContent = '👁';
+        if (icon) icon.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>';
       }
     }
 
@@ -1695,8 +1715,8 @@
 
       const filters = [
         { id: 'All', label: 'All Creators', count: totalCount },
-        { id: 'Core Team', label: '⭐ Core Team', count: coreCount },
-        { id: 'Members', label: '👥 Members', count: membersCount }
+        { id: 'Core Team', label: 'Core Team', count: coreCount },
+        { id: 'Members', label: 'Members', count: membersCount }
       ];
 
       c.innerHTML = filters.map(f => `
@@ -1777,7 +1797,7 @@
           <div>
             <div class="flex items-center gap-2">
               <h4 class="text-sm font-bold text-white flex items-center gap-2">
-                <span>⭐ Top Featured Storytellers</span>
+                <span>Featured Storytellers</span>
                 <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono text-xs">${creatorsData.length} in Carousel</span>
               </h4>
             </div>
@@ -1796,7 +1816,7 @@
         grid.innerHTML = bannerHtml + `
           <div class="col-span-full py-16 text-center text-zinc-400 font-mono text-xs glass-card rounded-2xl p-8 border border-white/10">
             <p class="text-base text-zinc-300 font-sans font-semibold mb-2">No storytellers currently in the top carousel</p>
-            <p class="text-zinc-500 mb-4">Click "Add New Storyteller" above or switch to the Full Team Roster and click "⭐ Add to Carousel" on any member card.</p>
+            <p class="text-zinc-500 mb-4">Click "Add New Storyteller" above or switch to the Team Roster and click "Add to Carousel" on any member card.</p>
             <button onclick="openCreatorModal(null)" class="px-5 py-2 rounded-xl bg-[#B21F29] text-white text-xs font-semibold">
               + Add First Storyteller
             </button>
@@ -1815,7 +1835,7 @@
               <div class="overflow-hidden">
                 <h4 class="text-sm font-bold text-white truncate">${c.name}</h4>
                 <p class="text-xs text-[#fda4af] font-mono truncate mt-0.5">${c.role}</p>
-                <span class="inline-block px-2 py-0.5 rounded-md bg-amber-500/20 text-[10px] font-mono text-amber-300 mt-1">⭐ Top Carousel Slot #${idx + 1}</span>
+                <span class="inline-block px-2 py-0.5 rounded-md bg-amber-500/20 text-[10px] font-mono text-amber-300 mt-1">Carousel Slot #${idx + 1}</span>
               </div>
             </div>
             <p class="text-xs text-zinc-300 leading-relaxed line-clamp-3">${c.bio || 'Directs university landmark visual media.'}</p>
@@ -1840,7 +1860,7 @@
     function openCreatorModal(idx) {
       openMemberModal(null);
       const title = document.getElementById('memberModalTitle');
-      title.textContent = idx !== null ? `⭐ Edit Storyteller: ${creatorsData[idx].name}` : "⭐ Add Storyteller to Top Carousel";
+      title.textContent = idx !== null ? `Edit Storyteller: ${creatorsData[idx].name}` : "Add Storyteller to Top Carousel";
       if (idx !== null) {
         const c = creatorsData[idx];
         document.getElementById('memberName').value = c.name || '';
@@ -1889,7 +1909,7 @@
       };
       creatorsData.push(newCreator);
       safeSetItem('vtu_media_creators', creatorsData);
-      showToast(`⭐ Added "${m.name}" to Featured Storytellers Top Carousel!`);
+      showToast(`Added "${m.name}" to Featured Storytellers!`);
       renderTeamCards();
     }
 
@@ -1960,17 +1980,17 @@
                 <div class="overflow-hidden flex-1">
                   <div class="flex items-center justify-between gap-1">
                     <h4 class="text-sm font-bold text-white truncate">${m.name}</h4>
-                    ${inCarousel ? '<span class="text-[10px] font-mono text-amber-300 bg-amber-500/20 px-1.5 py-0.5 rounded shrink-0">⭐ Featured</span>' : ''}
+                    ${inCarousel ? '<span class="text-[10px] font-mono text-amber-300 bg-amber-500/20 px-1.5 py-0.5 rounded shrink-0">Featured</span>' : ''}
                   </div>
                   <p class="text-xs text-[#fda4af] font-mono truncate mt-0.5">${m.role}</p>
-                  <span class="inline-block px-2 py-0.5 rounded-md ${getMemberCategory(m) === 'Core Team' ? 'bg-[#B21F29]/30 text-[#fda4af] border border-[#B21F29]/50' : 'bg-blue-500/20 text-blue-300 border border-blue-500/40'} text-[10px] font-mono mt-1 font-semibold">${getMemberCategory(m) === 'Core Team' ? '⭐ Core Team' : '👥 Member'}</span>
+                  <span class="inline-block px-2 py-0.5 rounded-md ${getMemberCategory(m) === 'Core Team' ? 'bg-[#B21F29]/30 text-[#fda4af] border border-[#B21F29]/50' : 'bg-blue-500/20 text-blue-300 border border-blue-500/40'} text-[10px] font-mono mt-1 font-semibold">${getMemberCategory(m) === 'Core Team' ? 'Core Team' : 'Member'}</span>
                 </div>
               </div>
 
               <!-- Details -->
               <div class="space-y-1.5 text-[11px] font-mono text-zinc-400 border-t border-white/[0.06] pt-3">
-                <p class="truncate"><span class="text-zinc-500">Gear:</span> ${m.gear || 'â€”'}</p>
-                <p class="truncate"><span class="text-zinc-500">Credits:</span> ${m.credits || 'â€”'}</p>
+                <p class="truncate"><span class="text-zinc-500">Gear:</span> ${m.gear || '—'}</p>
+                <p class="truncate"><span class="text-zinc-500">Credits:</span> ${m.credits || '—'}</p>
               </div>
             </div>
 
@@ -1982,7 +2002,7 @@
                 onclick="toggleMemberTier(${originalIndex})"
                 class="w-full py-1 px-2.5 rounded-lg bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 text-zinc-300 hover:text-white text-[11px] font-medium transition-all flex items-center justify-center gap-1.5"
               >
-                <span>${getMemberCategory(m) === 'Core Team' ? '🔄 Switch to Members' : '⭐ Promote to Core Team'}</span>
+                <span>${getMemberCategory(m) === 'Core Team' ? 'Move to Members' : 'Promote to Core Team'}</span>
               </button>
 
               <!-- Carousel Toggle Button -->
@@ -1992,7 +2012,7 @@
                   onclick="removeMemberFromCarousel(${originalIndex})"
                   class="w-full py-1.5 px-2.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-[11px] font-medium transition-all flex items-center justify-center gap-1.5"
                 >
-                  <span>⭐ In Top Carousel (Click to Remove)</span>
+                  <span>In Carousel (Click to Remove)</span>
                 </button>
               ` : `
                 <button
@@ -2000,7 +2020,7 @@
                   onclick="addMemberToCarousel(${originalIndex})"
                   class="w-full py-1.5 px-2.5 rounded-lg bg-white/[0.04] hover:bg-amber-500/15 border border-white/10 hover:border-amber-500/40 text-zinc-300 hover:text-amber-200 text-[11px] font-medium transition-all flex items-center justify-center gap-1.5"
                 >
-                  <span>⭐ Add to Top Carousel</span>
+                  <span>Add to Carousel</span>
                 </button>
               `}
 
@@ -2585,7 +2605,7 @@
       const newHash = await hashPin(newPin);
       localStorage.setItem('vtu_admin_pin_hash', newHash);
       closeChangePinModal();
-      showToast("🔒 Master PIN updated! Only you can now unlock this admin portal.");
+      showToast("Master PIN updated successfully.");
     }
 
     function saveGithubToken() {
@@ -2612,7 +2632,7 @@
       const btn = document.getElementById('btnDeployGithub');
       statusEl.classList.remove('hidden', 'text-red-400', 'text-emerald-400');
       statusEl.classList.add('text-amber-400');
-      statusEl.textContent = "⏳ Step 1/3: Connecting to GitHub repository (Nihal404/Media-Club-website)...";
+      statusEl.textContent = "Step 1/3: Connecting to GitHub repository (Nihal404/Media-Club-website)...";
       btn.disabled = true;
 
       try {
@@ -2634,7 +2654,7 @@
           }
         } catch (e) {}
 
-        statusEl.textContent = "⏳ Step 2/3: Bundling latest team, storytellers, gallery & video content...";
+        statusEl.textContent = "Step 2/3: Bundling latest site content...";
 
         const payload = {
           vtu_media_productions: productionsData,
@@ -2649,7 +2669,7 @@
         // UTF-8 to base64
         const base64Content = btoa(unescape(encodeURIComponent(jsonStr)));
 
-        statusEl.textContent = "⏳ Step 3/3: Committing to GitHub & triggering Vercel build...";
+        statusEl.textContent = "Step 3/3: Committing to GitHub & triggering build...";
 
         const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
           method: 'PUT',
@@ -2659,7 +2679,7 @@
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            message: 'feat(cms): force update live site content from admin portal',
+            message: 'feat(cms): update live site content from admin portal',
             content: base64Content,
             sha: sha || undefined
           })
@@ -2672,12 +2692,12 @@
 
         statusEl.classList.remove('text-amber-400');
         statusEl.classList.add('text-emerald-400');
-        statusEl.innerHTML = "✅ <strong>Live Update Deployed!</strong><br>Successfully pushed to GitHub. Vercel is building the live site right now.<br>All visitors will see these updates in ~15 seconds!";
-        showToast("🚀 Live site force updated successfully!");
+        statusEl.innerHTML = "<strong>Deployment Initiated</strong><br>Successfully pushed to GitHub. Live production build is in progress.<br>Changes will be live for all visitors shortly.";
+        showToast("Live deployment triggered successfully.");
       } catch (err) {
         statusEl.classList.remove('text-amber-400');
         statusEl.classList.add('text-red-400');
-        statusEl.textContent = "❌ Deployment failed: " + err.message;
+        statusEl.textContent = "Deployment failed: " + err.message;
       } finally {
         btn.disabled = false;
       }

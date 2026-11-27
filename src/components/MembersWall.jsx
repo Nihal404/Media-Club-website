@@ -11,8 +11,8 @@ function getMemberCategory(m) {
 export default function MembersWall({ onOpenMemberModal }) {
   const [activeCategory, setActiveCategory] = useState('Core Team');
   const categories = [
-    { id: 'Core Team', label: '⭐ Core Team' },
-    { id: 'Members', label: '👥 Members' }
+    { id: 'Core Team', label: 'Core Team' },
+    { id: 'Members', label: 'Members' }
   ];
 
   const scrollCreators = (delta) => {

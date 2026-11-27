@@ -2897,7 +2897,7 @@ const GlowCursor = ({
             <div class="space-y-2 pt-2">
               <p class="text-xs font-mono uppercase tracking-wider text-indigo-300">Deliverables Provided at ₹0 Cost:</p>
               <div class="flex flex-wrap gap-2">
-                ${activeClub.deliverables.map(d => `<span class="px-3 py-1 rounded-full text-xs bg-white/[0.05] border border-white/10 text-zinc-200">✓ ${d}</span>`).join('')}
+                ${activeClub.deliverables.map(d => `<span class="px-3 py-1 rounded-full text-xs bg-white/[0.05] border border-white/10 text-zinc-200">${d}</span>`).join('')}
               </div>
             </div>
           </div>
@@ -3065,8 +3065,8 @@ const GlowCursor = ({
       }
 
       const tabs = [
-        { id: 'Core Team', label: '⭐ Core Team', count: coreCount },
-        { id: 'Members', label: '👥 Members', count: membersCount }
+        { id: 'Core Team', label: 'Core Team', count: coreCount },
+        { id: 'Members', label: 'Members', count: membersCount }
       ];
 
       bar.innerHTML = tabs.map(t => {
@@ -3129,7 +3129,7 @@ const GlowCursor = ({
 
               <!-- Top Segregation Tier Pill & Rec Dot -->
               <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
-                <span class="px-2.5 py-0.5 rounded-full ${cat === 'Core Team' ? 'bg-[#B21F29]/80 text-white border border-[#B21F29]' : 'bg-blue-600/80 text-white border border-blue-500'} backdrop-blur-md text-[10px] font-semibold">${cat === 'Core Team' ? '⭐ Core Team' : '👥 Member'}</span>
+                <span class="px-2.5 py-0.5 rounded-full ${cat === 'Core Team' ? 'bg-[#B21F29]/80 text-white border border-[#B21F29]' : 'bg-blue-600/80 text-white border border-blue-500'} backdrop-blur-md text-[10px] font-semibold">${cat === 'Core Team' ? 'Core Team' : 'Member'}</span>
                 <span class="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-[9px] font-mono text-[#fda4af] opacity-0 group-hover:opacity-100 transition-opacity">${(m.exif || '').split('•')[0]}</span>
               </div>
 
