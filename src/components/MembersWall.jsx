@@ -51,73 +51,35 @@ export default function MembersWall({ onOpenMemberModal }) {
           </p>
         </div>
 
-        {/* Horizontal Scrollable Featured Leads Carousel */}
+        {/* Featured Storytellers Grid (Directly Show All Cards) */}
         <div className="relative mb-20 reveal-up">
-          <div className="relative flex items-center justify-center">
-            {/* Left Scroll Button */}
-            <button
-              onClick={() => scrollCreators(-1)}
-              aria-label="Scroll Left"
-              className="hidden md:flex absolute -left-3 lg:-left-5 z-20 w-11 h-11 rounded-full border border-white/[0.12] bg-obsidian/90 backdrop-blur-md hover:bg-[#B21F29]/25 hover:border-[#B21F29]/60 items-center justify-center text-zinc-200 hover:text-white transition-all shadow-lg"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-
-            {/* Scrollable Track */}
-            <div
-              ref={carouselRef}
-              className="flex gap-6 w-full overflow-x-auto scroll-smooth snap-x snap-mandatory py-4 px-2 sm:px-4 items-stretch cursor-grab active:cursor-grabbing"
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            >
-              {featuredCreators.map((c, idx) => (
-                <div
-                  key={idx}
-                  className="w-[280px] sm:w-[330px] md:w-[360px] shrink-0 snap-center relative rounded-3xl overflow-hidden transition-all duration-300 p-6 sm:p-7 bg-surface/90 border border-white/[0.1] hover:border-[#B21F29]/60 hover:shadow-glow-terracotta hover:-translate-y-1.5 flex flex-col justify-between group"
-                >
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-4">
-                      <div className="relative w-16 h-16 sm:w-18 sm:h-18 rounded-2xl overflow-hidden border border-white/20 shrink-0">
-                        <img src={c.avatar} alt={c.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                        <div className="absolute inset-0 bg-gradient-to-tr from-[#B21F29]/20 to-transparent"></div>
-                      </div>
-                      <div>
-                        <h4 className="text-lg font-semibold text-white leading-tight">{c.name}</h4>
-                        <p className="text-xs text-[#B21F29] font-mono mt-0.5">{c.role}</p>
-                        <p className="text-[11px] text-zinc-500 font-mono mt-0.5">{c.handle}</p>
-                      </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch w-full">
+            {featuredCreators.map((c, idx) => (
+              <div
+                key={idx}
+                className="w-full relative rounded-3xl overflow-hidden transition-all duration-300 p-7 sm:p-8 bg-surface/90 border border-white/[0.12] hover:border-[#B21F29]/70 hover:shadow-[0_20px_50px_rgba(178,31,41,0.25)] hover:-translate-y-2 flex flex-col justify-between group min-h-[300px]"
+              >
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4 sm:gap-5">
+                    <div className="relative w-20 h-20 sm:w-22 sm:h-22 rounded-2xl overflow-hidden border border-white/20 shrink-0">
+                      <img src={c.avatar} alt={c.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <div className="absolute inset-0 bg-gradient-to-tr from-[#B21F29]/20 to-transparent"></div>
                     </div>
-                    <p className="text-xs text-zinc-300 leading-relaxed">{c.bio}</p>
+                    <div>
+                      <h4 className="text-xl sm:text-2xl font-bold tracking-tight text-white leading-tight">{c.name}</h4>
+                      <p className="text-xs sm:text-sm text-[#B21F29] font-mono mt-1 font-medium">{c.role}</p>
+                      <p className="text-xs text-zinc-400 font-mono mt-0.5">{c.handle}</p>
+                    </div>
                   </div>
-                  <div className="flex items-center justify-between pt-4 mt-4 border-t border-white/[0.08] text-[11px] font-mono text-zinc-400">
-                    {c.stats.map((s, i) => (
-                      <span key={i} className="px-2 py-0.5 rounded bg-white/[0.04] text-zinc-300">{s}</span>
-                    ))}
-                  </div>
+                  <p className="text-sm text-zinc-300 leading-relaxed pt-1">{c.bio}</p>
                 </div>
-              ))}
-            </div>
-
-            {/* Right Scroll Button */}
-            <button
-              onClick={() => scrollCreators(1)}
-              aria-label="Scroll Right"
-              className="hidden md:flex absolute -right-3 lg:-right-5 z-20 w-11 h-11 rounded-full border border-white/[0.12] bg-obsidian/90 backdrop-blur-md hover:bg-[#B21F29]/25 hover:border-[#B21F29]/60 items-center justify-center text-zinc-200 hover:text-white transition-all shadow-lg"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-
-          {/* Interactive Scroll & Drag Hint */}
-          <div className="flex items-center justify-between text-xs text-zinc-500 px-2 mt-2">
-            <span>← Drag or scroll horizontally to view all creators →</span>
-            <div className="flex md:hidden gap-2">
-              <button onClick={() => scrollCreators(-1)} className="px-3 py-1 rounded-full border border-white/[0.12] bg-white/[0.04] text-[11px]">← Prev</button>
-              <button onClick={() => scrollCreators(1)} className="px-3 py-1 rounded-full border border-white/[0.12] bg-white/[0.04] text-[11px]">Next →</button>
-            </div>
+                <div className="flex flex-wrap items-center gap-2 pt-5 mt-5 border-t border-white/[0.08] text-xs font-mono text-zinc-400">
+                  {c.stats.map((s, i) => (
+                    <span key={i} className="px-2.5 py-1 rounded-md bg-white/[0.05] border border-white/10 text-zinc-200">{s}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
