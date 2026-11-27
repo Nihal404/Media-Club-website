@@ -185,9 +185,9 @@
   </script>
 
   <!-- Separated Modular CSS: Core Design System, Animations & Cinema Effects -->
-  <link rel="stylesheet" href="src/styles/main.css?v=20261125_pure_black_intro" />
-  <link rel="stylesheet" href="src/styles/animations.css?v=20261125_pure_black_intro" />
-  <link rel="stylesheet" href="src/styles/effects.css?v=20261125_pure_black_intro" />
+  <link rel="stylesheet" href="src/styles/main.css?v=20261128_full_black_loader" />
+  <link rel="stylesheet" href="src/styles/animations.css?v=20261128_full_black_loader" />
+  <link rel="stylesheet" href="src/styles/effects.css?v=20261128_full_black_loader" />
 
   <!-- React 18 & ReactDOM 18 Engine -->
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
@@ -205,14 +205,14 @@
   <!-- Interactive Background Canvas: Dust Particles & Camera Bokeh Simulator -->
   <canvas id="cinemaFxCanvas" class="fixed inset-0 pointer-events-none z-10 opacity-70" aria-hidden="true"></canvas>
 
-  <!-- Cinema 4-Second Studio Intro Video (Pure Seamless Unboxed Experience) -->
+  <!-- Cinema Studio Intro Video (Full Black Screen Experience) -->
   <div id="cinemaPreloader"
-    class="fixed inset-0 z-[100] flex items-center justify-center bg-black overflow-hidden select-none transition-opacity duration-500 ease-out"
+    class="fixed inset-0 z-[100] w-screen h-screen flex items-center justify-center bg-black overflow-hidden select-none transition-opacity duration-500 ease-out"
     style="background-color: #000000 !important; background: #000000 !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important;">
-    <!-- Centered Studio Video: Seamless, unboxed, authentic cinema studio intro -->
-    <div class="relative w-full max-w-3xl sm:max-w-4xl max-h-[85vh] flex items-center justify-center p-4">
+    <!-- Centered Studio Video: 100% Seamless Full Black Screen -->
+    <div class="relative w-full h-full flex items-center justify-center bg-black">
       <video id="preloaderVideo" src="assets/loader.mp4" autoplay muted playsinline preload="auto"
-        class="w-full h-auto max-h-[80vh] object-contain drop-shadow-[0_0_60px_rgba(178,31,41,0.35)]"></video>
+        class="w-full h-full object-contain"></video>
     </div>
 
     <!-- Discrete Minimalist Skip in Bottom Right -->
@@ -244,7 +244,7 @@
   <div id="root"></div>
 
   <!-- React JS Application Bundle with Cache-Buster -->
-  <script src="src/bundle.js?v=20261125_live_force_update"></script>
+  <script src="src/bundle.js?v=20261128_full_black_loader"></script>
 
   <!-- Noscript Fallback -->
   <noscript>
