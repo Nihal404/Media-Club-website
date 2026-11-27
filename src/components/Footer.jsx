@@ -38,16 +38,6 @@ export default function Footer({ onOpenBooking, showToast }) {
             <div className="relative z-10 mt-10 pt-6 border-t border-white/[0.06] flex flex-col sm:flex-row sm:items-end justify-between gap-5">
               <div>
                 <p className="text-[11px] text-zinc-500">VTU Media Club © 2026. All Rights Reserved.</p>
-                <a
-                  href="admin.html"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 mt-2 px-3 py-1 rounded-full text-[11px] font-mono font-medium text-zinc-400 hover:text-white bg-white/[0.03] hover:bg-[#B21F29]/25 border border-white/10 hover:border-[#B21F29]/50 transition-all"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#B21F29]"></span>
-                  <span>Admin Portal</span>
-                  <span className="text-[#B21F29]">↗</span>
-                </a>
               </div>
               <div className="flex flex-wrap gap-2">
                 <a href="#home" className="px-3.5 py-1.5 rounded-full text-[11px] font-medium text-zinc-300 bg-white/[0.04] border border-white/[0.08] hover:bg-white/[0.1] hover:text-white transition-colors">Home</a>
