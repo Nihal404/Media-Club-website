@@ -51,32 +51,69 @@ export default function MembersWall({ onOpenMemberModal }) {
           </p>
         </div>
 
-        {/* Featured Storytellers Grid (Directly Show All Cards) */}
+        {/* Featured Storytellers Grid (Directly Show All Cards with Hover Popup Info) */}
         <div className="relative mb-20 reveal-up">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 items-stretch w-full">
             {featuredCreators.map((c, idx) => (
               <div
                 key={idx}
-                className="w-full relative rounded-3xl overflow-hidden transition-all duration-300 p-7 sm:p-8 bg-surface/90 border border-white/[0.12] hover:border-[#B21F29]/70 hover:shadow-[0_20px_50px_rgba(178,31,41,0.25)] hover:-translate-y-2 flex flex-col justify-between group min-h-[300px]"
+                className="creator-card group relative cursor-pointer rounded-[1.75rem] overflow-hidden bg-[#120406] border border-white/[0.12] hover:border-[#B21F29]/70 shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_25px_60px_-10px_rgba(178,31,41,0.35)]"
               >
-                <div className="space-y-4">
-                  <div className="flex items-center gap-4 sm:gap-5">
-                    <div className="relative w-20 h-20 sm:w-22 sm:h-22 rounded-2xl overflow-hidden border border-white/20 shrink-0">
-                      <img src={c.avatar} alt={c.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                      <div className="absolute inset-0 bg-gradient-to-tr from-[#B21F29]/20 to-transparent"></div>
+                {/* Big Portrait Photo: Fills Card */}
+                <div className="relative aspect-[3/4] sm:aspect-[4/5] md:aspect-[3/4] w-full overflow-hidden bg-obsidian">
+                  <img
+                    src={c.avatar}
+                    alt={c.name}
+                    className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent transition-opacity duration-300"></div>
+
+                  {/* Default Visible Bottom Identity Strip */}
+                  <div className="absolute bottom-0 inset-x-0 p-5 bg-gradient-to-t from-black/95 via-black/70 to-transparent group-hover:opacity-0 group-hover:translate-y-2 transition-all duration-300 pointer-events-none">
+                    <div className="flex items-center justify-between gap-2">
+                      <h4 className="text-lg sm:text-xl font-bold text-white tracking-tight">{c.name}</h4>
+                      <span className="px-2 py-0.5 rounded-full bg-[#B21F29]/30 text-[#fda4af] text-[10px] font-mono border border-[#B21F29]/50 shrink-0">Featured</span>
                     </div>
-                    <div>
-                      <h4 className="text-xl sm:text-2xl font-bold tracking-tight text-white leading-tight">{c.name}</h4>
-                      <p className="text-xs sm:text-sm text-[#B21F29] font-mono mt-1 font-medium">{c.role}</p>
-                      <p className="text-xs text-zinc-400 font-mono mt-0.5">{c.handle}</p>
+                    <p className="text-xs text-[#fda4af] font-mono mt-0.5 truncate">{c.role}</p>
+                    <div className="flex items-center justify-between text-[11px] text-zinc-400 font-mono mt-2 pt-2 border-t border-white/10">
+                      <span className="truncate">{c.handle}</span>
+                      <span className="text-zinc-300 group-hover:text-white flex items-center gap-1 font-sans">Details ↗</span>
                     </div>
                   </div>
-                  <p className="text-sm text-zinc-300 leading-relaxed pt-1">{c.bio}</p>
-                </div>
-                <div className="flex flex-wrap items-center gap-2 pt-5 mt-5 border-t border-white/[0.08] text-xs font-mono text-zinc-400">
-                  {c.stats.map((s, i) => (
-                    <span key={i} className="px-2.5 py-1 rounded-md bg-white/[0.05] border border-white/10 text-zinc-200">{s}</span>
-                  ))}
+
+                  {/* Hover Popup Card: Floats over photo on hover with full information */}
+                  <div className="absolute inset-3 sm:inset-4 p-5 sm:p-6 rounded-2xl bg-black/92 backdrop-blur-xl border border-[#B21F29]/60 shadow-2xl opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-400 ease-out flex flex-col justify-between overflow-y-auto custom-scroll pointer-events-none group-hover:pointer-events-auto">
+                    {/* Camera Viewfinder Corner Brackets */}
+                    <span className="absolute top-2.5 left-2.5 w-3 h-3 border-t-2 border-l-2 border-[#B21F29] rounded-tl-sm pointer-events-none"></span>
+                    <span className="absolute top-2.5 right-2.5 w-3 h-3 border-t-2 border-r-2 border-[#B21F29] rounded-tr-sm pointer-events-none"></span>
+                    <span className="absolute bottom-2.5 left-2.5 w-3 h-3 border-b-2 border-l-2 border-[#B21F29] rounded-bl-sm pointer-events-none"></span>
+                    <span className="absolute bottom-2.5 right-2.5 w-3 h-3 border-b-2 border-r-2 border-[#B21F29] rounded-br-sm pointer-events-none"></span>
+
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between gap-2 border-b border-white/[0.08] pb-3">
+                        <div>
+                          <h4 className="text-lg sm:text-xl font-bold text-white tracking-tight leading-tight">{c.name}</h4>
+                          <p className="text-xs text-[#fda4af] font-mono mt-0.5">{c.role}</p>
+                        </div>
+                        <span className="px-2.5 py-1 rounded-full bg-[#B21F29]/25 text-[#fda4af] text-[10px] font-mono font-semibold border border-[#B21F29]/50 shrink-0">Featured</span>
+                      </div>
+
+                      <p className="text-[11px] text-zinc-400 font-mono">
+                        <span className="text-zinc-500">Handle:</span> {c.handle}
+                      </p>
+
+                      <p className="text-xs text-zinc-200 leading-relaxed">{c.bio}</p>
+                    </div>
+
+                    <div className="pt-3 border-t border-white/[0.08] space-y-2">
+                      <p className="text-[10px] font-mono uppercase tracking-wider text-[#fda4af]">Specialization &amp; Rig</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {c.stats.map((s, i) => (
+                          <span key={i} className="px-2.5 py-1 rounded-md bg-white/[0.07] border border-white/10 text-[10px] font-mono text-zinc-200">{s}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
